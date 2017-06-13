@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.model.Book;
 import com.twu.biblioteca.model.User;
 import org.junit.After;
 import org.junit.Before;
