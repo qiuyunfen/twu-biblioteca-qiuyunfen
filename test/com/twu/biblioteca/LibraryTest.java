@@ -26,19 +26,12 @@ public class LibraryTest {
 
     @Test
     public void should_return_uncheck_out_books_list() {
-        assertEquals(library.getUnCheckOutBooksList(), "List Books:\nHead First Java Sierra k 2007");
+        assertEquals(library.getUnCheckOutBooksList(), "List Books:\nHead First Java Sierra k 2007\n");
     }
 
     @Test
     public void should_return_checkout_book_list() {
-        ArrayList<Book> books = new ArrayList<Book>();
-        books.add(new Book(1,"Test-driven Development: By Example", "Kent Beck", 2003, "Lucy"));
-        books.add(new Book(2,"Head First Java", "Sierra k", 2007, ""));
-
-        ArrayList<Book> userListBooks = new ArrayList<Book>();
-        userListBooks.add(new Book(2, "Head First Java", "Sierra k", 2007, ""));
-
-        assertEquals(library.getCheckoutBooksList(books).size(), userListBooks.size());
+        assertEquals(library.getCheckoutBooksList(), "The books you have checked out:\nTest-driven Development: By Example Kent Beck 2003\n");
     }
 
     @Test

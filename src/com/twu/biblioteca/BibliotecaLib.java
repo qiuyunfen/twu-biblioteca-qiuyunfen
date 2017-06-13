@@ -45,7 +45,7 @@ public class BibliotecaLib {
             return handleUserSignIn(input);
         } else if(status == STATUS.get("SIGN_IN")) {
             status = STATUS.get("LIST_BOOKS");
-            return getUnCheckOutBooksList();
+            return getUnCheckOutBooksList() + getCheckoutBooksList();
         }
         return "";
     }
@@ -57,27 +57,23 @@ public class BibliotecaLib {
     }
 
     public String getUnCheckOutBooksList() {
-        ArrayList<Book> userListBooks = new ArrayList<Book>();
         String msg = "List Books:\n";
         for(Book book : books) {
             if(book.getCheckUserName().equals("")) {
-                userListBooks.add(book);
-                msg += book.getBookName()  + " " + book.getAuthor() + " " + book.getYear();
+                msg += book.getBookName()  + " " + book.getAuthor() + " " + book.getYear() + "\n";
             }
         }
         return msg;
     }
 
-    public ArrayList<Book> getCheckoutBooksList(ArrayList<Book> books) {
-        ArrayList<Book> userListBooks = new ArrayList<Book>();
-        System.out.println("the books you have checked out");
+    public String getCheckoutBooksList() {
+        String msg = "The books you have checked out:\n";
         for(Book book : books) {
             if(book.getCheckUserName().equals(user.getName())) {
-                userListBooks.add(book);
-                System.out.println(book.getBookName()  + " " + book.getAuthor() + " " + book.getYear());
+                msg += book.getBookName()  + " " + book.getAuthor() + " " + book.getYear() + "\n";
             }
         }
-        return userListBooks;
+        return msg;
     }
 
     public String checkoutBook(int bookId, ArrayList<Book> unCheckoutBooks) {
