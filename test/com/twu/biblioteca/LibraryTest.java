@@ -61,6 +61,12 @@ public class LibraryTest {
         assertEquals(library.checkoutBook(3, userListBooks), "That book is not available.");
     }
 
+    @Test
+    public void should_return_return_book_success() {
+        ArrayList<Book> userCheckoutListBooks = new ArrayList<Book>();
+        userCheckoutListBooks.add(new Book(2, "Head First Java", "Sierra k", 2007, "Lucy"));
+        assertEquals(library.returnBook(2, userCheckoutListBooks), "Thank you for returning the book.");
+    }
     @After
     public void tearDown() {
         library = null;
