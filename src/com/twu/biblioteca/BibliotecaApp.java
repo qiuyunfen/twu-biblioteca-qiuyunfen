@@ -10,7 +10,6 @@ public class BibliotecaApp {
         while (sc.hasNext()) {
             String input = sc.nextLine();
             String msg = library.handleInput(input);
-
         }
     }
 }

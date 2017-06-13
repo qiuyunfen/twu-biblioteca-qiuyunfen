@@ -7,20 +7,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BibliotecaLib {
-    static HashMap<String, String> HINT_INFO = new HashMap<String, String>();
-    static HashMap<String, Integer> STATUS = new HashMap<String, Integer>();
-    User user;
+    public HashMap<String, String> HINT_INFO = new HashMap<String, String>();
+    public HashMap<String, Integer> STATUS = new HashMap<String, Integer>();
+    public static int status = 0;
+    public User user;
 
-    public String handleInput(String input) {
-
-        return "";
-    }
-    public void init(String name, String role) {
-        user = userSignIn(name, role);
-        ArrayList<Book> books = initBooksList();
+    public void init() {
         initHintInfo();
         initStatus();
-        librarySystem(books);
+        ArrayList<Book> books = initBooksList();
+        //librarySystem(books);
     }
 
     public void initHintInfo() {
@@ -40,6 +36,13 @@ public class BibliotecaLib {
         STATUS.put("RETURN_BOOK", 12);
     }
 
+    public String handleInput(String input) {
+        init();
+        if(status == STATUS.get("MAIN_DEFAULT")) {
+            String msg = handleUserSignIn(input);
+        }
+        return "";
+    }
     public ArrayList<Book> initBooksList() {
         ArrayList<Book> books = new ArrayList<Book>();
         books.add(new Book(1,"Test-driven Development: By Example", "Kent Beck", 2003, "Lucy"));
@@ -103,7 +106,13 @@ public class BibliotecaLib {
     }
 
     public User userSignIn(String name, String role) {
-       User user = new User(name, role);
+       user = new User(name, role);
        return user;
+    }
+
+    public String handleUserSignIn(String input) {
+        String[] userInfo = input.split(",");
+        user = userSignIn(userInfo[0], userInfo[1]);
+        return printWelcomeMsg();
     }
 }
