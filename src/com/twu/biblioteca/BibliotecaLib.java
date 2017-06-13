@@ -4,17 +4,24 @@ import com.twu.biblioteca.model.Book;
 import com.twu.biblioteca.model.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BibliotecaLib {
-    static  final String WELCOME_MESSAGE = ",Welcome to Biblioteca Library";
+    static HashMap<String, String> HINT_INFO = new HashMap<String, String>();
     User user;
+
 
     public void init(String name, String role) {
         user = userSignIn(name, role);
         ArrayList<Book> books = initBooksList();
+        initHintInfo();
         librarySystem(books);
     }
 
+    public void initHintInfo() {
+        HINT_INFO.put("WELCOME_MESSAGE", ",Welcome to Biblioteca Library");
+        HINT_INFO.put("MAIN_COMMAND", "1.List Books");
+    }
     public ArrayList<Book> initBooksList() {
         ArrayList<Book> books = new ArrayList<Book>();
         books.add(new Book(1,"Test-driven Development: By Example", "Kent Beck", 2003, "Lucy"));
@@ -73,8 +80,8 @@ public class BibliotecaLib {
     }
 
     public String printWelcomeMsg() {
-        System.out.println(user.getName() + WELCOME_MESSAGE);
-        return user.getName() + WELCOME_MESSAGE;
+        System.out.println(user.getName() + HINT_INFO.get("WELCOME_MESSAGE"));
+        return user.getName() + HINT_INFO.get("WELCOME_MESSAGE");
     }
 
     public User userSignIn(String name, String role) {
