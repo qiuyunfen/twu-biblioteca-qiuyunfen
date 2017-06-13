@@ -21,7 +21,13 @@ public class BibliotecaLib {
     public void initHintInfo() {
         HINT_INFO.put("WELCOME_MESSAGE", ",Welcome to Biblioteca Library");
         HINT_INFO.put("MAIN_COMMAND", "1.List Books");
+        HINT_INFO.put("BOOK_COMMAND", "1.check out book\n2.return book");
+        HINT_INFO.put("CHECK_OUT_SUCCESS", "Thank you! Enjoy the book");
+        HINT_INFO.put("CHECK_OUT_FAIL", "That book is not available.");
+        HINT_INFO.put("RETURN_SUCCESS", "Thank you for returning the book.");
+        HINT_INFO.put("RETURN_FAIL", "That is not a valid book to return.");
     }
+
     public ArrayList<Book> initBooksList() {
         ArrayList<Book> books = new ArrayList<Book>();
         books.add(new Book(1,"Test-driven Development: By Example", "Kent Beck", 2003, "Lucy"));
@@ -63,20 +69,20 @@ public class BibliotecaLib {
         for(Book book: unCheckoutBooks) {
             if(bookId == book.getBookId()) {
                 book.setCheckUserName(user.getName());
-                return "Thank you! Enjoy the book";
+                return HINT_INFO.get("CHECK_OUT_SUCCESS");
             }
         }
-        return "That book is not available.";
+        return HINT_INFO.get("CHECK_OUT_FAIL");
     }
 
     public String returnBook(int bookId, ArrayList<Book> checkoutBooks) {
         for(Book book: checkoutBooks) {
             if(book.getBookId() == bookId) {
                 book.setCheckUserName("");
-                return "Thank you for returning the book.";
+                return HINT_INFO.get("RETURN_SUCCESS");
             }
         }
-        return "That is not a valid book to return.";
+        return HINT_INFO.get("RETURN_FAIL");
     }
 
     public String printWelcomeMsg() {
