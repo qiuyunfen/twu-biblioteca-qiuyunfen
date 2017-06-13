@@ -12,7 +12,7 @@ public class UserSignInTest {
 
     @Before
     public void setUp() {
-        user = new User("Lucy", "customer");
+        user = new User("Lucy");
     }
     @Test
     public void should_return_customer_name() {

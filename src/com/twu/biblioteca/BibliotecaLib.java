@@ -143,14 +143,13 @@ public class BibliotecaLib {
         return user.getName() + HINT_INFO.get("WELCOME_MESSAGE") + "\n";
     }
 
-    public User userSignIn(String name, String role) {
-       user = new User(name, role);
+    public User userSignIn(String name) {
+       user = new User(name);
        return user;
     }
 
     public String handleUserSignIn(String input) {
-        String[] userInfo = input.split(",");
-        user = userSignIn(userInfo[0], userInfo[1]);
+        user = userSignIn(input);
         return printWelcomeMsg();
     }
 }

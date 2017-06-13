@@ -16,7 +16,7 @@ public class LibraryTest {
     @Before
     public void setUp() {
        library = new BibliotecaLib();
-       library.userSignIn("Lucy", "customer");
+       library.userSignIn("Lucy");
        library.init();
     }
     @Test

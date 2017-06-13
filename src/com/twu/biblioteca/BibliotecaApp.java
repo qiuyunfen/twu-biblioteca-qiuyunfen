@@ -8,6 +8,7 @@ public class BibliotecaApp {
         BibliotecaLib library = new BibliotecaLib();
         library.init();
         Scanner sc = new Scanner(System.in);
+        System.out.println("please enter your name");
         while (sc.hasNext()) {
             String input = sc.nextLine();
             String msg = library.handleInput(input);
