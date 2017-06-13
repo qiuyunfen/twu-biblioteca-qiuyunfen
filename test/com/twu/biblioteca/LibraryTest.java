@@ -42,6 +42,10 @@ public class LibraryTest {
         assertEquals(library.getCheckoutBooksList(books).size(), userListBooks.size());
     }
 
+    @Test
+    public void should_return_checkout_success() {
+        assertEquals(library.checkoutBook(1), "Thank you! Enjoy the book");
+    }
     @After
     public void tearDown() {
         library = null;
