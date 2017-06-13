@@ -17,8 +17,8 @@ public class BibliotecaLib {
 
     public ArrayList<Book> initBooksList() {
         ArrayList<Book> books = new ArrayList<Book>();
-        books.add(new Book("Test-driven Development: By Example", "Kent Beck", 2003, true));
-        books.add(new Book("Head First Java", "Sierra k", 2007, false));
+        books.add(new Book("Test-driven Development: By Example", "Kent Beck", 2003, "Lucy"));
+        books.add(new Book("Head First Java", "Sierra k", 2007, ""));
         return books;
     }
 
@@ -32,7 +32,7 @@ public class BibliotecaLib {
         ArrayList<Book> userListBooks = new ArrayList<Book>();
         System.out.println("list books");
         for(Book book : books) {
-            if(!book.isCheckOut()) {
+            if(book.getCheckUserName().equals("")) {
                 userListBooks.add(book);
                 System.out.println(book.getBookName()  + " " + book.getAuthor() + " " + book.getYear());
             }
@@ -44,7 +44,7 @@ public class BibliotecaLib {
         ArrayList<Book> userListBooks = new ArrayList<Book>();
         System.out.println("the books you have checked out");
         for(Book book : books) {
-            if(book.isCheckOut()) {
+            if(book.getCheckUserName().equals(user.getName())) {
                 userListBooks.add(book);
                 System.out.println(book.getBookName()  + " " + book.getAuthor() + " " + book.getYear());
             }
