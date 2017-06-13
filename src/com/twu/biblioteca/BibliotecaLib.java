@@ -1,6 +1,9 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.model.Book;
 import com.twu.biblioteca.model.User;
+
+import java.util.ArrayList;
 
 public class BibliotecaLib {
     static  final String WELCOME_MESSAGE = ",Welcome to Biblioteca Library";
@@ -8,11 +11,23 @@ public class BibliotecaLib {
 
     public void init(String name, String role) {
         user = userSignIn(name, role);
-        librarySystem();
+        ArrayList<Book> books = initBooksList();
+        librarySystem(books);
     }
 
-    public void librarySystem() {
+    public ArrayList<Book> initBooksList() {
+        ArrayList<Book> books = new ArrayList<Book>();
+        books.add(new Book("Test-driven Development: By Example", "Kent Beck", 2003));
+        return books;
+    }
+
+    public void librarySystem(ArrayList<Book> books) {
         printWelcomeMsg();
+        getBooksList(books);
+    }
+
+    public ArrayList<Book> getBooksList(ArrayList<Book> books) {
+        return books;
     }
 
     public String printWelcomeMsg() {

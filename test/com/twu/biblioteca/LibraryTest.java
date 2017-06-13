@@ -24,10 +24,10 @@ public class LibraryTest {
     }
 
     @Test
-    public void should_return_books_list() {
+    public void should_return_all_books_list() {
         ArrayList<Book> books = new ArrayList<Book>();
         books.add(new Book("Test-driven Development: By Example", "Kent Beck", 2003));
-        assertEquals(library.getBooksList(), books);
+        assertEquals(library.getBooksList(books), books);
     }
 
     @After
