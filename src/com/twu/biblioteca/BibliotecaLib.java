@@ -11,12 +11,12 @@ public class BibliotecaLib {
     public HashMap<String, Integer> STATUS = new HashMap<String, Integer>();
     public static int status ;
     public User user;
+    public ArrayList<Book> books;
 
     public void init() {
         initHintInfo();
         initStatus();
-        ArrayList<Book> books = initBooksList();
-        //librarySystem(books);
+        books = initBooksList();
     }
 
     public void initHintInfo() {
@@ -39,10 +39,13 @@ public class BibliotecaLib {
     }
 
     public String handleInput(String input) {
-        init();
+
         if(status == STATUS.get("MAIN_DEFAULT")) {
             status = STATUS.get("SIGN_IN");
             return handleUserSignIn(input);
+        } else if(status == STATUS.get("SIGN_IN")) {
+            status = STATUS.get("LIST_BOOKS");
+            return getUnCheckOutBooksList();
         }
         return "";
     }
@@ -53,22 +56,16 @@ public class BibliotecaLib {
         return books;
     }
 
-    public void librarySystem(ArrayList<Book> books) {
-        printWelcomeMsg();
-        getUnCheckOutBooksList(books);
-        getCheckoutBooksList(books);
-    }
-
-    public ArrayList<Book> getUnCheckOutBooksList(ArrayList<Book> books) {
+    public String getUnCheckOutBooksList() {
         ArrayList<Book> userListBooks = new ArrayList<Book>();
-        System.out.println("list books");
+        String msg = "List Books:\n";
         for(Book book : books) {
             if(book.getCheckUserName().equals("")) {
                 userListBooks.add(book);
-                System.out.println(book.getBookName()  + " " + book.getAuthor() + " " + book.getYear());
+                msg += book.getBookName()  + " " + book.getAuthor() + " " + book.getYear();
             }
         }
-        return userListBooks;
+        return msg;
     }
 
     public ArrayList<Book> getCheckoutBooksList(ArrayList<Book> books) {

@@ -6,6 +6,7 @@ public class BibliotecaApp {
 
     public static void main(String[] args) {
         BibliotecaLib library = new BibliotecaLib();
+        library.init();
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()) {
             String input = sc.nextLine();
