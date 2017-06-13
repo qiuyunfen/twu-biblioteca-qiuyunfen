@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class BibliotecaLib {
     public HashMap<String, String> HINT_INFO = new HashMap<String, String>();
     public HashMap<String, Integer> STATUS = new HashMap<String, Integer>();
-    public static int status = 0;
+    public static int status ;
     public User user;
 
     public void init() {
@@ -30,16 +30,19 @@ public class BibliotecaLib {
     }
 
     public void initStatus() {
-        STATUS.put("MAIN_DEFAULT", 0);
+        STATUS.put("MAIN_DEFAULT", -1);
+        STATUS.put("SIGN_IN", 0);
         STATUS.put("LIST_BOOKS", 1);
         STATUS.put("CHECK_OUT_BOOK", 11);
         STATUS.put("RETURN_BOOK", 12);
+        status = STATUS.get("MAIN_DEFAULT");
     }
 
     public String handleInput(String input) {
         init();
         if(status == STATUS.get("MAIN_DEFAULT")) {
-            String msg = handleUserSignIn(input);
+            status = STATUS.get("SIGN_IN");
+            return handleUserSignIn(input);
         }
         return "";
     }
@@ -101,8 +104,7 @@ public class BibliotecaLib {
     }
 
     public String printWelcomeMsg() {
-        System.out.println(user.getName() + HINT_INFO.get("WELCOME_MESSAGE"));
-        return user.getName() + HINT_INFO.get("WELCOME_MESSAGE");
+        return user.getName() + HINT_INFO.get("WELCOME_MESSAGE") + "\n" + HINT_INFO.get("MAIN_COMMAND");
     }
 
     public User userSignIn(String name, String role) {

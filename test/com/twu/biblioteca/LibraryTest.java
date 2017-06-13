@@ -21,7 +21,7 @@ public class LibraryTest {
     }
     @Test
     public void should_return_user_welcome_message() {
-        assertEquals(library.printWelcomeMsg(), "Lucy,Welcome to Biblioteca Library");
+        assertEquals(library.printWelcomeMsg(), "Lucy,Welcome to Biblioteca Library\n1.List Books");
     }
 
     @Test
