@@ -60,7 +60,7 @@ public class BibliotecaLib {
                 return "Thank you! Enjoy the book";
             }
         }
-        return "";
+        return "That book is not available.";
     }
 
     public String printWelcomeMsg() {
