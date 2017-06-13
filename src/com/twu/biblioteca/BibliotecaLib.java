@@ -53,7 +53,6 @@ public class BibliotecaLib {
     }
 
     public String checkoutBook(int bookId, ArrayList<Book> unCheckoutBooks) {
-
         for(Book book: unCheckoutBooks) {
             if(bookId == book.getBookId()) {
                 book.setCheckUserName(user.getName());
@@ -61,6 +60,16 @@ public class BibliotecaLib {
             }
         }
         return "That book is not available.";
+    }
+
+    public String returnBook(int bookId, ArrayList<Book> checkoutBooks) {
+        for(Book book: checkoutBooks) {
+            if(book.getBookId() == bookId) {
+                book.setCheckUserName("");
+                return "Thank you for returning the book.";
+            }
+        }
+        return "";
     }
 
     public String printWelcomeMsg() {
