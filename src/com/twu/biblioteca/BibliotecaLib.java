@@ -25,13 +25,29 @@ public class BibliotecaLib {
     public void librarySystem(ArrayList<Book> books) {
         printWelcomeMsg();
         getUnCheckOutBooksList(books);
+        getCheckoutBooksList(books);
     }
 
     public ArrayList<Book> getUnCheckOutBooksList(ArrayList<Book> books) {
         ArrayList<Book> userListBooks = new ArrayList<Book>();
+        System.out.println("list books");
         for(Book book : books) {
-            if(!book.isCheckOut())userListBooks.add(book);
-            System.out.println(book.getBookName()  + " " + book.getAuthor() + " " + book.getYear());
+            if(!book.isCheckOut()) {
+                userListBooks.add(book);
+                System.out.println(book.getBookName()  + " " + book.getAuthor() + " " + book.getYear());
+            }
+        }
+        return userListBooks;
+    }
+
+    public ArrayList<Book> getCheckoutBooksList(ArrayList<Book> books) {
+        ArrayList<Book> userListBooks = new ArrayList<Book>();
+        System.out.println("the books you have checked out");
+        for(Book book : books) {
+            if(book.isCheckOut()) {
+                userListBooks.add(book);
+                System.out.println(book.getBookName()  + " " + book.getAuthor() + " " + book.getYear());
+            }
         }
         return userListBooks;
     }
