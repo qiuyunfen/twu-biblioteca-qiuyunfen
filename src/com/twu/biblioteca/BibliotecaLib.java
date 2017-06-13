@@ -8,6 +8,10 @@ public class BibliotecaLib {
 
     public void init(String name, String role) {
         user = userSignIn(name, role);
+        librarySystem();
+    }
+
+    public void librarySystem() {
         printWelcomeMsg();
     }
 
