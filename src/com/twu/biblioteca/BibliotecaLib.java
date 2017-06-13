@@ -28,7 +28,11 @@ public class BibliotecaLib {
     }
 
     public ArrayList<Book> getBooksList(ArrayList<Book> books) {
-        return books;
+        ArrayList<Book> userListBooks = new ArrayList<Book>();
+        for(Book book : books) {
+            if(!book.isCheckOut())userListBooks.add(book);
+        }
+        return userListBooks;
     }
 
     public String printWelcomeMsg() {
