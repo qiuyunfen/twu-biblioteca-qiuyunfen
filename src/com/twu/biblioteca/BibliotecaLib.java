@@ -9,6 +9,7 @@ import java.util.HashMap;
 public class BibliotecaLib {
     public HashMap<String, String> HINT_INFO = new HashMap<String, String>();
     public HashMap<String, Integer> STATUS = new HashMap<String, Integer>();
+    public HashMap<String, String> COMMAND = new HashMap<String, String>();
     public static int status ;
     public User user;
     public ArrayList<Book> books;
@@ -16,6 +17,7 @@ public class BibliotecaLib {
     public void init() {
         initHintInfo();
         initStatus();
+        initCommand();
         books = initBooksList();
     }
 
@@ -23,29 +25,40 @@ public class BibliotecaLib {
         HINT_INFO.put("WELCOME_MESSAGE", ",Welcome to Biblioteca Library");
         HINT_INFO.put("MAIN_COMMAND", "1.List Books");
         HINT_INFO.put("BOOK_COMMAND", "1.check out book\n2.return book");
+        HINT_INFO.put("CHECK_OUT_BOOK_ID", "please input which book you want to check out:");
         HINT_INFO.put("CHECK_OUT_SUCCESS", "Thank you! Enjoy the book");
         HINT_INFO.put("CHECK_OUT_FAIL", "That book is not available.");
         HINT_INFO.put("RETURN_SUCCESS", "Thank you for returning the book.");
         HINT_INFO.put("RETURN_FAIL", "That is not a valid book to return.");
     }
 
+
     public void initStatus() {
         STATUS.put("MAIN_DEFAULT", -1);
         STATUS.put("SIGN_IN", 0);
         STATUS.put("LIST_BOOKS", 1);
-        STATUS.put("CHECK_OUT_BOOK", 11);
-        STATUS.put("RETURN_BOOK", 12);
+        STATUS.put("CHECK_OUT_BOOK", 2);
+        STATUS.put("RETURN_BOOK", 3);
         status = STATUS.get("MAIN_DEFAULT");
     }
 
-    public String handleInput(String input) {
+    public void initCommand() {
+        COMMAND.put("CHECK_OUT_BOOK", "1");
+        COMMAND.put("RETURM_BOOK", "2");
+    }
 
+    public String handleInput(String input) {
         if(status == STATUS.get("MAIN_DEFAULT")) {
             status = STATUS.get("SIGN_IN");
             return handleUserSignIn(input);
         } else if(status == STATUS.get("SIGN_IN")) {
             status = STATUS.get("LIST_BOOKS");
-            return getUnCheckOutBooksList() + getCheckoutBooksList();
+            return getUnCheckOutBooksList() + getCheckoutBooksList() + HINT_INFO.get("BOOK_COMMAND");
+        } else if(status == STATUS.get("LIST_BOOKS")) {
+            if(input.equals(COMMAND.get("CHECK_OUT_BOOK"))) {
+                status = STATUS.get("CHECK_OUT_BOOK");
+                return HINT_INFO.get("CHECK_OUT_BOOK_ID");
+            }
         }
         return "";
     }
