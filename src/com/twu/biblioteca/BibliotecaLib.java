@@ -17,7 +17,8 @@ public class BibliotecaLib {
 
     public ArrayList<Book> initBooksList() {
         ArrayList<Book> books = new ArrayList<Book>();
-        books.add(new Book("Test-driven Development: By Example", "Kent Beck", 2003));
+        books.add(new Book("Test-driven Development: By Example", "Kent Beck", 2003, true));
+        books.add(new Book("Head First Java", "Sierra k", 2007, false));
         return books;
     }
 

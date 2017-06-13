@@ -26,7 +26,7 @@ public class LibraryTest {
     @Test
     public void should_return_all_books_list() {
         ArrayList<Book> books = new ArrayList<Book>();
-        books.add(new Book("Test-driven Development: By Example", "Kent Beck", 2003));
+        books.add(new Book("Test-driven Development: By Example", "Kent Beck", 2003, false));
         assertEquals(library.getBooksList(books), books);
     }
 
