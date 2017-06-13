@@ -8,13 +8,18 @@ import java.util.HashMap;
 
 public class BibliotecaLib {
     static HashMap<String, String> HINT_INFO = new HashMap<String, String>();
+    static HashMap<String, Integer> STATUS = new HashMap<String, Integer>();
     User user;
 
+    public String handleInput(String input) {
 
+        return "";
+    }
     public void init(String name, String role) {
         user = userSignIn(name, role);
         ArrayList<Book> books = initBooksList();
         initHintInfo();
+        initStatus();
         librarySystem(books);
     }
 
@@ -26,6 +31,13 @@ public class BibliotecaLib {
         HINT_INFO.put("CHECK_OUT_FAIL", "That book is not available.");
         HINT_INFO.put("RETURN_SUCCESS", "Thank you for returning the book.");
         HINT_INFO.put("RETURN_FAIL", "That is not a valid book to return.");
+    }
+
+    public void initStatus() {
+        STATUS.put("MAIN_DEFAULT", 0);
+        STATUS.put("LIST_BOOKS", 1);
+        STATUS.put("CHECK_OUT_BOOK", 11);
+        STATUS.put("RETURN_BOOK", 12);
     }
 
     public ArrayList<Book> initBooksList() {
