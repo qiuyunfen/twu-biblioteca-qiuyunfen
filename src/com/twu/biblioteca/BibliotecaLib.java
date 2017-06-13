@@ -31,12 +31,13 @@ public class BibliotecaLib {
         ArrayList<Book> userListBooks = new ArrayList<Book>();
         for(Book book : books) {
             if(!book.isCheckOut())userListBooks.add(book);
+            System.out.println(book.getBookName()  + " " + book.getAuthor() + " " + book.getYear());
         }
         return userListBooks;
     }
 
     public String printWelcomeMsg() {
-        System.out.print(user.getName() + WELCOME_MESSAGE);
+        System.out.println(user.getName() + WELCOME_MESSAGE);
         return user.getName() + WELCOME_MESSAGE;
     }
 
