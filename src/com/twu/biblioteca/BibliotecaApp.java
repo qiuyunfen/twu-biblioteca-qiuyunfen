@@ -11,5 +11,4 @@ public class BibliotecaApp {
         BibliotecaLib library = new BibliotecaLib();
         library.init(name, role);
     }
-
 }
