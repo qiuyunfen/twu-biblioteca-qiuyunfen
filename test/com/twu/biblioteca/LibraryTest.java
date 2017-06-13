@@ -21,7 +21,7 @@ public class LibraryTest {
     }
     @Test
     public void should_return_user_welcome_message() {
-        assertEquals(library.printWelcomeMsg(), "Lucy,Welcome to Biblioteca Library\n1.List Books");
+        assertEquals(library.printWelcomeMsg(), "Lucy,Welcome to Biblioteca Library\n");
     }
 
     @Test
@@ -36,16 +36,12 @@ public class LibraryTest {
 
     @Test
     public void should_return_checkout_success() {
-        ArrayList<Book> userListBooks = new ArrayList<Book>();
-        userListBooks.add(new Book(2, "Head First Java", "Sierra k", 2007, ""));
-        assertEquals(library.checkoutBook(2, userListBooks), "Thank you! Enjoy the book");
+        assertEquals(library.checkoutBook(2), "Thank you! Enjoy the book\n");
     }
 
     @Test
     public void should_return_checkout_fail() {
-        ArrayList<Book> userListBooks = new ArrayList<Book>();
-        userListBooks.add(new Book(2, "Head First Java", "Sierra k", 2007, ""));
-        assertEquals(library.checkoutBook(3, userListBooks), "That book is not available.");
+        assertEquals(library.checkoutBook(3), "That book is not available.\n");
     }
 
     @Test

@@ -50,15 +50,18 @@ public class BibliotecaLib {
     public String handleInput(String input) {
         if(status == STATUS.get("MAIN_DEFAULT")) {
             status = STATUS.get("SIGN_IN");
-            return handleUserSignIn(input);
+            return handleUserSignIn(input)  + HINT_INFO.get("MAIN_COMMAND") + "\n";
         } else if(status == STATUS.get("SIGN_IN")) {
             status = STATUS.get("LIST_BOOKS");
-            return getUnCheckOutBooksList() + getCheckoutBooksList() + HINT_INFO.get("BOOK_COMMAND");
+            return getUnCheckOutBooksList() + getCheckoutBooksList() + HINT_INFO.get("BOOK_COMMAND") + "\n";
         } else if(status == STATUS.get("LIST_BOOKS")) {
             if(input.equals(COMMAND.get("CHECK_OUT_BOOK"))) {
                 status = STATUS.get("CHECK_OUT_BOOK");
                 return HINT_INFO.get("CHECK_OUT_BOOK_ID");
             }
+        } else if(status == STATUS.get("CHECK_OUT_BOOK")) {
+            status = STATUS.get("SIGN_IN");
+            return checkoutBook(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
         }
         return "";
     }
@@ -89,14 +92,14 @@ public class BibliotecaLib {
         return msg;
     }
 
-    public String checkoutBook(int bookId, ArrayList<Book> unCheckoutBooks) {
-        for(Book book: unCheckoutBooks) {
-            if(bookId == book.getBookId()) {
+    public String checkoutBook(int bookId) {
+        for(Book book: books) {
+            if(bookId == book.getBookId() && book.getCheckUserName().equals("")) {
                 book.setCheckUserName(user.getName());
-                return HINT_INFO.get("CHECK_OUT_SUCCESS");
+                return HINT_INFO.get("CHECK_OUT_SUCCESS") + "\n";
             }
         }
-        return HINT_INFO.get("CHECK_OUT_FAIL");
+        return HINT_INFO.get("CHECK_OUT_FAIL") + "\n";
     }
 
     public String returnBook(int bookId, ArrayList<Book> checkoutBooks) {
@@ -110,7 +113,7 @@ public class BibliotecaLib {
     }
 
     public String printWelcomeMsg() {
-        return user.getName() + HINT_INFO.get("WELCOME_MESSAGE") + "\n" + HINT_INFO.get("MAIN_COMMAND");
+        return user.getName() + HINT_INFO.get("WELCOME_MESSAGE") + "\n";
     }
 
     public User userSignIn(String name, String role) {
