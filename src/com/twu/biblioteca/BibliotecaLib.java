@@ -24,10 +24,10 @@ public class BibliotecaLib {
 
     public void librarySystem(ArrayList<Book> books) {
         printWelcomeMsg();
-        getBooksList(books);
+        getUnCheckOutBooksList(books);
     }
 
-    public ArrayList<Book> getBooksList(ArrayList<Book> books) {
+    public ArrayList<Book> getUnCheckOutBooksList(ArrayList<Book> books) {
         ArrayList<Book> userListBooks = new ArrayList<Book>();
         for(Book book : books) {
             if(!book.isCheckOut())userListBooks.add(book);

@@ -25,21 +25,27 @@ public class LibraryTest {
 
     @Test
     public void should_return_all_books_list() {
-        ArrayList<Book> books = new ArrayList<Book>();
-        books.add(new Book("Test-driven Development: By Example", "Kent Beck", 2003, false));
-        assertEquals(library.getBooksList(books), books);
+        ArrayList<Book> books = library.initBooksList();
+        assertEquals(library.getUnCheckOutBooksList(books), books);
     }
 
     @Test
     public void should_return_uncheck_out_books_list() {
-        ArrayList<Book> books = new ArrayList<Book>();
-        books.add(new Book("Test-driven Development: By Example", "Kent Beck", 2003, true));
-        books.add(new Book("Head First Java", "Sierra k", 2007, false));
+        ArrayList<Book> books = library.initBooksList();
 
         ArrayList<Book> userListBooks = new ArrayList<Book>();
         userListBooks.add(new Book("Head First Java", "Sierra k", 2007, false));
 
-        assertEquals(library.getBooksList(books).size(), userListBooks.size());
+        assertEquals(library.getUnCheckOutBooksList(books).size(), userListBooks.size());
+    }
+
+    @Test
+    public void should_return_checkout_book_list() {
+        ArrayList<Book> books = library.initBooksList();
+        ArrayList<Book> userListBooks = new ArrayList<Book>();
+        userListBooks.add(new Book("Head First Java", "Sierra k", 2007, false));
+
+        assertEquals(library.getCheckoutBooksList(books).size, userListBooks.size());
     }
 
     @After
