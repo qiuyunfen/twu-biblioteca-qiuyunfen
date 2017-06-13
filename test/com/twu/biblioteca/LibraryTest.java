@@ -49,8 +49,11 @@ public class LibraryTest {
 
     @Test
     public void should_return_checkout_success() {
-        assertEquals(library.checkoutBook(2), "Thank you! Enjoy the book");
+        ArrayList<Book> userListBooks = new ArrayList<Book>();
+        userListBooks.add(new Book(2, "Head First Java", "Sierra k", 2007, ""));
+        assertEquals(library.checkoutBook(2, userListBooks), "Thank you! Enjoy the book");
     }
+
     @After
     public void tearDown() {
         library = null;

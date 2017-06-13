@@ -52,6 +52,17 @@ public class BibliotecaLib {
         return userListBooks;
     }
 
+    public String checkoutBook(int bookId, ArrayList<Book> unCheckoutBooks) {
+
+        for(Book book: unCheckoutBooks) {
+            if(bookId == book.getBookId()) {
+                book.setCheckUserName(user.getName());
+                return "Thank you! Enjoy the book";
+            }
+        }
+        return "";
+    }
+
     public String printWelcomeMsg() {
         System.out.println(user.getName() + WELCOME_MESSAGE);
         return user.getName() + WELCOME_MESSAGE;
