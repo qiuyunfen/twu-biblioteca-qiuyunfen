@@ -1,6 +1,7 @@
 package com.twu.biblioteca.model;
 
 public class Book {
+    private int bookId;
     private String bookName;
     private String author;
     private int year;
@@ -16,6 +17,14 @@ public class Book {
 
     public String getAuthor() {
         return author;
+    }
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
 
     public void setAuthor(String author) {
@@ -37,7 +46,8 @@ public class Book {
     public void setYear(int year) {
         this.year = year;
     }
-    public Book(String bookName, String author, int year, String checkUserName) {
+    public Book(int bookId, String bookName, String author, int year, String checkUserName) {
+        this.bookId = bookId;
         this.bookName = bookName;
         this.author = author;
         this.year = year;

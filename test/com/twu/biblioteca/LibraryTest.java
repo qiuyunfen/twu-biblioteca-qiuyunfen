@@ -25,26 +25,31 @@ public class LibraryTest {
 
     @Test
     public void should_return_uncheck_out_books_list() {
-        ArrayList<Book> books = library.initBooksList();
+        ArrayList<Book> books = new ArrayList<Book>();
+        books.add(new Book(1,"Test-driven Development: By Example", "Kent Beck", 2003, "Lucy"));
+        books.add(new Book(2,"Head First Java", "Sierra k", 2007, ""));
 
         ArrayList<Book> userListBooks = new ArrayList<Book>();
-        userListBooks.add(new Book("Head First Java", "Sierra k", 2007, ""));
+        userListBooks.add(new Book(2, "Head First Java", "Sierra k", 2007, ""));
 
         assertEquals(library.getUnCheckOutBooksList(books).size(), userListBooks.size());
     }
 
     @Test
     public void should_return_checkout_book_list() {
-        ArrayList<Book> books = library.initBooksList();
+        ArrayList<Book> books = new ArrayList<Book>();
+        books.add(new Book(1,"Test-driven Development: By Example", "Kent Beck", 2003, "Lucy"));
+        books.add(new Book(2,"Head First Java", "Sierra k", 2007, ""));
+
         ArrayList<Book> userListBooks = new ArrayList<Book>();
-        userListBooks.add(new Book("Head First Java", "Sierra k", 2007, ""));
+        userListBooks.add(new Book(2, "Head First Java", "Sierra k", 2007, ""));
 
         assertEquals(library.getCheckoutBooksList(books).size(), userListBooks.size());
     }
 
     @Test
     public void should_return_checkout_success() {
-        assertEquals(library.checkoutBook(1), "Thank you! Enjoy the book");
+        assertEquals(library.checkoutBook(2), "Thank you! Enjoy the book");
     }
     @After
     public void tearDown() {
