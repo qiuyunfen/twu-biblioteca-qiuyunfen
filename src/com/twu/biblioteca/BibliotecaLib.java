@@ -23,13 +23,15 @@ public class BibliotecaLib {
 
     public void initHintInfo() {
         HINT_INFO.put("WELCOME_MESSAGE", ",Welcome to Biblioteca Library");
-        HINT_INFO.put("MAIN_COMMAND", "1.List Books");
+        HINT_INFO.put("MAIN_COMMAND", "1.List Books\n2.exit");
         HINT_INFO.put("BOOK_COMMAND", "1.check out book\n2.return book");
         HINT_INFO.put("CHECK_OUT_BOOK_ID", "please input which book you want to check out:");
+        HINT_INFO.put("RETURN_BOOK_ID", "please input which book you want to return:");
         HINT_INFO.put("CHECK_OUT_SUCCESS", "Thank you! Enjoy the book");
         HINT_INFO.put("CHECK_OUT_FAIL", "That book is not available.");
         HINT_INFO.put("RETURN_SUCCESS", "Thank you for returning the book.");
         HINT_INFO.put("RETURN_FAIL", "That is not a valid book to return.");
+        HINT_INFO.put("EXIT","quit");
     }
 
 
@@ -43,6 +45,8 @@ public class BibliotecaLib {
     }
 
     public void initCommand() {
+        COMMAND.put("LIST_BOOKS", "1");
+        COMMAND.put("EXIT", "2");
         COMMAND.put("CHECK_OUT_BOOK", "1");
         COMMAND.put("RETURM_BOOK", "2");
     }
@@ -52,16 +56,26 @@ public class BibliotecaLib {
             status = STATUS.get("SIGN_IN");
             return handleUserSignIn(input)  + HINT_INFO.get("MAIN_COMMAND") + "\n";
         } else if(status == STATUS.get("SIGN_IN")) {
-            status = STATUS.get("LIST_BOOKS");
-            return getUnCheckOutBooksList() + getCheckoutBooksList() + HINT_INFO.get("BOOK_COMMAND") + "\n";
+            if(input.equals(COMMAND.get("LIST_BOOKS"))) {
+                status = STATUS.get("LIST_BOOKS");
+                return getUnCheckOutBooksList() + getCheckoutBooksList() + HINT_INFO.get("BOOK_COMMAND") + "\n";
+            } else if(input.equals(COMMAND.get("EXIT"))) {
+                return HINT_INFO.get("EXIT");
+            }
         } else if(status == STATUS.get("LIST_BOOKS")) {
             if(input.equals(COMMAND.get("CHECK_OUT_BOOK"))) {
                 status = STATUS.get("CHECK_OUT_BOOK");
                 return HINT_INFO.get("CHECK_OUT_BOOK_ID");
+            } else if(input.equals(COMMAND.get("RETURM_BOOK"))) {
+                status = STATUS.get("RETURN_BOOK");
+                return HINT_INFO.get("RETURN_BOOK_ID");
             }
         } else if(status == STATUS.get("CHECK_OUT_BOOK")) {
             status = STATUS.get("SIGN_IN");
             return checkoutBook(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
+        } else if(status == STATUS.get("RETURN_BOOK")) {
+            status = STATUS.get("SIGN_IN");
+            return returnBook(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
         }
         return "";
     }
@@ -76,7 +90,7 @@ public class BibliotecaLib {
         String msg = "List Books:\n";
         for(Book book : books) {
             if(book.getCheckUserName().equals("")) {
-                msg += book.getBookName()  + " " + book.getAuthor() + " " + book.getYear() + "\n";
+                msg += book.getBookId() + ":bookName:" + book.getBookName()  + ",author:" + book.getAuthor() + ",year:" + book.getYear() + "\n";
             }
         }
         return msg;
@@ -86,7 +100,7 @@ public class BibliotecaLib {
         String msg = "The books you have checked out:\n";
         for(Book book : books) {
             if(book.getCheckUserName().equals(user.getName())) {
-                msg += book.getBookName()  + " " + book.getAuthor() + " " + book.getYear() + "\n";
+                msg += book.getBookId() + ":bookName:" + book.getBookName()  + ",author:" + book.getAuthor() + ",year:" + book.getYear() + "\n";
             }
         }
         return msg;
@@ -102,14 +116,14 @@ public class BibliotecaLib {
         return HINT_INFO.get("CHECK_OUT_FAIL") + "\n";
     }
 
-    public String returnBook(int bookId, ArrayList<Book> checkoutBooks) {
-        for(Book book: checkoutBooks) {
-            if(book.getBookId() == bookId) {
+    public String returnBook(int bookId) {
+        for(Book book: books) {
+            if(book.getBookId() == bookId && book.getCheckUserName().equals(user.getName())) {
                 book.setCheckUserName("");
-                return HINT_INFO.get("RETURN_SUCCESS");
+                return HINT_INFO.get("RETURN_SUCCESS") + "\n";
             }
         }
-        return HINT_INFO.get("RETURN_FAIL");
+        return HINT_INFO.get("RETURN_FAIL") + "\n";
     }
 
     public String printWelcomeMsg() {

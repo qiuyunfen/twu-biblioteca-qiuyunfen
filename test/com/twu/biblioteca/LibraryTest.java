@@ -26,12 +26,12 @@ public class LibraryTest {
 
     @Test
     public void should_return_uncheck_out_books_list() {
-        assertEquals(library.getUnCheckOutBooksList(), "List Books:\nHead First Java Sierra k 2007\n");
+        assertEquals(library.getUnCheckOutBooksList(), "List Books:\n2:bookName:Head First Java,author:Sierra k,year:2007\n");
     }
 
     @Test
     public void should_return_checkout_book_list() {
-        assertEquals(library.getCheckoutBooksList(), "The books you have checked out:\nTest-driven Development: By Example Kent Beck 2003\n");
+        assertEquals(library.getCheckoutBooksList(), "The books you have checked out:\n1:bookName:Test-driven Development: By Example,author:Kent Beck,year:2003\n");
     }
 
     @Test
@@ -46,16 +46,12 @@ public class LibraryTest {
 
     @Test
     public void should_return_return_book_success() {
-        ArrayList<Book> userCheckoutListBooks = new ArrayList<Book>();
-        userCheckoutListBooks.add(new Book(2, "Head First Java", "Sierra k", 2007, "Lucy"));
-        assertEquals(library.returnBook(2, userCheckoutListBooks), "Thank you for returning the book.");
+        assertEquals(library.returnBook(1), "Thank you for returning the book.\n");
     }
 
     @Test
     public void should_return_return_book_fail() {
-        ArrayList<Book> userCheckoutListBooks = new ArrayList<Book>();
-        userCheckoutListBooks.add(new Book(2, "Head First Java", "Sierra k", 2007, "Lucy"));
-        assertEquals(library.returnBook(3, userCheckoutListBooks), "That is not a valid book to return.");
+        assertEquals(library.returnBook(3), "That is not a valid book to return.\n");
     }
 
     @After

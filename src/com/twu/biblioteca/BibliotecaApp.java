@@ -11,6 +11,7 @@ public class BibliotecaApp {
         while (sc.hasNext()) {
             String input = sc.nextLine();
             String msg = library.handleInput(input);
+            if(msg.equals("quit"))break;
             System.out.print(msg);
         }
     }
