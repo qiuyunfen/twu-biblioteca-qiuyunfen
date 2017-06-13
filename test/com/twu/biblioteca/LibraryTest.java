@@ -30,6 +30,17 @@ public class LibraryTest {
         assertEquals(library.getBooksList(books), books);
     }
 
+    @Test
+    public void should_return_uncheck_out_books_list() {
+        ArrayList<Book> books = new ArrayList<Book>();
+        books.add(new Book("Test-driven Development: By Example", "Kent Beck", 2003, true));
+        books.add(new Book("Head First Java", "Sierra k", 2007, false));
+
+        ArrayList<Book> userListBooks = new ArrayList<Book>();
+        userListBooks.add(new Book("Head First Java", "Sierra k", 2007, false));
+        assertEquals(library.getBooksList(books), userListBooks);
+    }
+
     @After
     public void tearDown() {
         library = null;
