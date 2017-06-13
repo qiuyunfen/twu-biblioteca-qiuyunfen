@@ -56,20 +56,11 @@ public class BibliotecaLib {
             status = STATUS.get("SIGN_IN");
             return handleUserSignIn(input)  + HINT_INFO.get("MAIN_COMMAND") + "\n";
         } else if(status == STATUS.get("SIGN_IN")) {
-            if(input.equals(COMMAND.get("LIST_BOOKS"))) {
-                status = STATUS.get("LIST_BOOKS");
-                return getUnCheckOutBooksList() + getCheckoutBooksList() + HINT_INFO.get("BOOK_COMMAND") + "\n";
-            } else if(input.equals(COMMAND.get("EXIT"))) {
-                return HINT_INFO.get("EXIT");
-            }
+            String x = processSignInStatus(input);
+            if (x != null) return x;
         } else if(status == STATUS.get("LIST_BOOKS")) {
-            if(input.equals(COMMAND.get("CHECK_OUT_BOOK"))) {
-                status = STATUS.get("CHECK_OUT_BOOK");
-                return HINT_INFO.get("CHECK_OUT_BOOK_ID");
-            } else if(input.equals(COMMAND.get("RETURM_BOOK"))) {
-                status = STATUS.get("RETURN_BOOK");
-                return HINT_INFO.get("RETURN_BOOK_ID");
-            }
+            String x = processListBookStatus(input);
+            if (x != null) return x;
         } else if(status == STATUS.get("CHECK_OUT_BOOK")) {
             status = STATUS.get("SIGN_IN");
             return checkoutBook(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
@@ -79,6 +70,28 @@ public class BibliotecaLib {
         }
         return "";
     }
+
+    private String processListBookStatus(String input) {
+        if(input.equals(COMMAND.get("CHECK_OUT_BOOK"))) {
+            status = STATUS.get("CHECK_OUT_BOOK");
+            return HINT_INFO.get("CHECK_OUT_BOOK_ID");
+        } else if(input.equals(COMMAND.get("RETURM_BOOK"))) {
+            status = STATUS.get("RETURN_BOOK");
+            return HINT_INFO.get("RETURN_BOOK_ID");
+        }
+        return null;
+    }
+
+    private String processSignInStatus(String input) {
+        if(input.equals(COMMAND.get("LIST_BOOKS"))) {
+            status = STATUS.get("LIST_BOOKS");
+            return getUnCheckOutBooksList() + getCheckoutBooksList() + HINT_INFO.get("BOOK_COMMAND") + "\n";
+        } else if(input.equals(COMMAND.get("EXIT"))) {
+            return HINT_INFO.get("EXIT");
+        }
+        return "";
+    }
+
     public ArrayList<Book> initBooksList() {
         ArrayList<Book> books = new ArrayList<Book>();
         books.add(new Book(1,"Test-driven Development: By Example", "Kent Beck", 2003, "Lucy"));
