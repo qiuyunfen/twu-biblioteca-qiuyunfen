@@ -82,10 +82,9 @@ public class BibliotecaLib {
 
     private String processReturn(String input) {
         if(flag.equals(COMMAND.get("LIST_BOOKS"))) {
-
             return returnBack(Integer.parseInt(input), books) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
         } else {
-            return returnMovie(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
+            return returnBack(Integer.parseInt(input), movies) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
         }
     }
 
@@ -175,26 +174,6 @@ public class BibliotecaLib {
         for(T thing: list) {
             if(thing.getId() == id && thing.getCheckOutUser().size() > 0 && thing.getCheckOutUser().get(0).equals(curUser.getName())) {
                 thing.returnBack(curUser.getName());
-                return HINT_INFO.get("RETURN_SUCCESS") + "\n";
-            }
-        }
-        return HINT_INFO.get("RETURN_FAIL") + "\n";
-    }
-
-    public String returnBook(int bookId) {
-        for(Book book: books) {
-            if(book.getId() == bookId && book.getCheckOutUser().size() > 0 && book.getCheckOutUser().get(0).equals(curUser.getName())) {
-                book.returnBack(curUser.getName());
-                return HINT_INFO.get("RETURN_SUCCESS") + "\n";
-            }
-        }
-        return HINT_INFO.get("RETURN_FAIL") + "\n";
-    }
-
-    public String returnMovie(int movieId) {
-        for(Movie movie: movies) {
-            if(movie.getId() == movieId && movie.getCheckOutUser().size() > 0 && movie.getCheckOutUser().get(0).equals(curUser.getName())) {
-                movie.returnBack(curUser.getName());
                 return HINT_INFO.get("RETURN_SUCCESS") + "\n";
             }
         }

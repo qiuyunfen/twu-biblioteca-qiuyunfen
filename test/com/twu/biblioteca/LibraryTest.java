@@ -79,7 +79,7 @@ public class LibraryTest {
 
     @Test
     public void should_return_return_fail() {
-        assertEquals("That is not a valid id to return.\n", library.returnMovie(1));
+        assertEquals("That is not a valid id to return.\n", library.returnBack(1, movies));
     }
 
     @Test
