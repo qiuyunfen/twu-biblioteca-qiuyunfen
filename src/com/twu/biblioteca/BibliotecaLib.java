@@ -33,7 +33,8 @@ public class BibliotecaLib {
         HINT_INFO.put("RETURN_BOOK_ID", "please input which book you want to return:");
         HINT_INFO.put("CHECK_OUT_BOOK_SUCCESS", "Thank you! Enjoy the book");
         HINT_INFO.put("CHECK_OUT_MOVIE_SUCCESS", "Thank you! Enjoy the movie");
-        HINT_INFO.put("CHECK_OUT_FAIL", "That book is not available.");
+        HINT_INFO.put("CHECK_OUT_BOOK_FAIL", "That book is not available.");
+        HINT_INFO.put("CHECK_OUT_MOVIE_FAIL", "That movie is not available.");
         HINT_INFO.put("RETURN_SUCCESS", "Thank you for returning the book.");
         HINT_INFO.put("RETURN_FAIL", "That is not a valid book to return.");
         HINT_INFO.put("MOVIE_COMMAND","1.check out movie\n2.return movie");
@@ -168,7 +169,7 @@ public class BibliotecaLib {
                 return HINT_INFO.get("CHECK_OUT_BOOK_SUCCESS") + "\n";
             }
         }
-        return HINT_INFO.get("CHECK_OUT_FAIL") + "\n";
+        return HINT_INFO.get("CHECK_OUT_BOOK_FAIL") + "\n";
     }
 
     public String checkoutMovie(int movieId) {
@@ -178,7 +179,7 @@ public class BibliotecaLib {
                 return HINT_INFO.get("CHECK_OUT_MOVIE_SUCCESS") + "\n";
             }
         }
-        return HINT_INFO.get("CHECK_OUT_FAIL") + "\n";
+        return HINT_INFO.get("CHECK_OUT_MOVIE_FAIL") + "\n";
     }
 
     private void addUsertoCheckList(LibraryThing movie) {
