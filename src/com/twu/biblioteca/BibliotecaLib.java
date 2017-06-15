@@ -82,7 +82,8 @@ public class BibliotecaLib {
 
     private String processReturn(String input) {
         if(flag.equals(COMMAND.get("LIST_BOOKS"))) {
-            return returnBook(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
+
+            return returnBack(Integer.parseInt(input), books) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
         } else {
             return returnMovie(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
         }
@@ -92,7 +93,7 @@ public class BibliotecaLib {
         if(flag.equals(COMMAND.get("LIST_BOOKS"))) {
             return checkOut(Integer.parseInt(input), books) + HINT_INFO.get("MAIN_COMMAND") + "\n";
         } else {
-            return checkoutMovie(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
+            return checkOut(Integer.parseInt(input), movies) + HINT_INFO.get("MAIN_COMMAND") + "\n";
         }
     }
 
@@ -170,6 +171,15 @@ public class BibliotecaLib {
         }
         return msg;
     }
+    public <T extends LibraryThing> String returnBack(int id, ArrayList<T> list) {
+        for(T thing: list) {
+            if(thing.getId() == id && thing.getCheckOutUser().size() > 0 && thing.getCheckOutUser().get(0).equals(curUser.getName())) {
+                thing.returnBack(curUser.getName());
+                return HINT_INFO.get("RETURN_SUCCESS") + "\n";
+            }
+        }
+        return HINT_INFO.get("RETURN_FAIL") + "\n";
+    }
 
     public String returnBook(int bookId) {
         for(Book book: books) {
@@ -209,26 +219,6 @@ public class BibliotecaLib {
         for(T thing: list) {
             if(id == thing.getId() && thing.getCheckOutUser().size() == 0) {
                 thing.checkOut(curUser.getName());
-                return HINT_INFO.get("CHECK_OUT_SUCCESS") + "\n";
-            }
-        }
-        return HINT_INFO.get("CHECK_OUT_FAIL") + "\n";
-    }
-
-    public String checkoutBook(int bookId) {
-        for(Book book: books) {
-            if(bookId == book.getId() && book.getCheckOutUser().size() == 0) {
-                book.checkOut(curUser.getName());
-                return HINT_INFO.get("CHECK_OUT_SUCCESS") + "\n";
-            }
-        }
-        return HINT_INFO.get("CHECK_OUT_FAIL") + "\n";
-    }
-
-    public String checkoutMovie(int movieId) {
-        for(Movie movie: movies) {
-            if(movieId == movie.getId()) {
-                movie.checkOut(curUser.getName());
                 return HINT_INFO.get("CHECK_OUT_SUCCESS") + "\n";
             }
         }

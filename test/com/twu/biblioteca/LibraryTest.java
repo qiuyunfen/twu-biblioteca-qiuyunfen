@@ -14,11 +14,17 @@ import static org.junit.Assert.assertEquals;
 
 public class LibraryTest {
     BibliotecaLib library;
+    ArrayList<Book> books;
+    ArrayList<Movie> movies;
+    ArrayList<User> users;
 
     @Before
     public void setUp() {
        library = new BibliotecaLib();
        library.init();
+       books = library.initBooksList();
+        movies = library.initMoviesList();
+        users = library.initUsersList();
        library.handleUserSignIn("123-4567,111");
     }
     @Test
@@ -38,22 +44,22 @@ public class LibraryTest {
 
     @Test
     public void should_return_checkout_success() {
-        assertEquals("Thank you! Enjoy!\n",library.checkoutBook(2));
+        assertEquals("Thank you! Enjoy!\n",library.checkOut(2, books));
     }
 
     @Test
     public void should_return_checkout_fail() {
-        assertEquals("That id is not available.\n",library.checkoutBook(3));
+        assertEquals("That id is not available.\n",library.checkOut(3, books));
     }
 
     @Test
     public void should_return_return_book_success() {
-        assertEquals("Thank you for returning.\n",library.returnBook(1));
+        assertEquals("Thank you for returning.\n",library.returnBack(1, books));
     }
 
     @Test
     public void should_return_return_book_fail() {
-        assertEquals("That is not a valid id to return.\n", library.returnBook(3));
+        assertEquals("That is not a valid id to return.\n", library.returnBack(3, books));
     }
 
     @Test
@@ -63,12 +69,12 @@ public class LibraryTest {
 
     @Test
     public void should_return_checkout_movie_success() {
-        assertEquals("Thank you! Enjoy!\n", library.checkoutMovie(1));
+        assertEquals("Thank you! Enjoy!\n", library.checkOut(1,movies));
     }
 
     @Test
     public void should_retrurn_checkout_movie_fail() {
-        assertEquals("That id is not available.\n", library.checkoutMovie(2));
+        assertEquals("That id is not available.\n", library.checkOut(2,movies));
     }
 
     @Test
