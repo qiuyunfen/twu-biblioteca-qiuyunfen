@@ -26,7 +26,7 @@ public class BibliotecaLib {
 
     public void initHintInfo() {
         HINT_INFO.put("WELCOME_MESSAGE", ",Welcome to Biblioteca Library");
-        HINT_INFO.put("MAIN_COMMAND", "1.List Books\n2.exit");
+        HINT_INFO.put("MAIN_COMMAND", "1.List Books\n2.List Movies\n3.exit");
         HINT_INFO.put("BOOK_COMMAND", "1.check out book\n2.return book");
         HINT_INFO.put("CHECK_OUT_BOOK_ID", "please input which book you want to check out:");
         HINT_INFO.put("RETURN_BOOK_ID", "please input which book you want to return:");
@@ -34,6 +34,7 @@ public class BibliotecaLib {
         HINT_INFO.put("CHECK_OUT_FAIL", "That book is not available.");
         HINT_INFO.put("RETURN_SUCCESS", "Thank you for returning the book.");
         HINT_INFO.put("RETURN_FAIL", "That is not a valid book to return.");
+        HINT_INFO.put("MOVIE_COMMAND","1.check out movie\n2.return movie");
         HINT_INFO.put("EXIT","quit");
     }
 
@@ -44,12 +45,14 @@ public class BibliotecaLib {
         STATUS.put("LIST_BOOKS", 1);
         STATUS.put("CHECK_OUT_BOOK", 2);
         STATUS.put("RETURN_BOOK", 3);
+        STATUS.put("LIST_MOVIES", 4);
         status = STATUS.get("MAIN_DEFAULT");
     }
 
     public void initCommand() {
         COMMAND.put("LIST_BOOKS", "1");
-        COMMAND.put("EXIT", "2");
+        COMMAND.put("LIST_MOVIES", "2");
+        COMMAND.put("EXIT", "3");
         COMMAND.put("CHECK_OUT_BOOK", "1");
         COMMAND.put("RETURM_BOOK", "2");
     }
@@ -89,6 +92,9 @@ public class BibliotecaLib {
         if(input.equals(COMMAND.get("LIST_BOOKS"))) {
             status = STATUS.get("LIST_BOOKS");
             return getUnCheckOutBooksList() + getCheckoutBooksList() + HINT_INFO.get("BOOK_COMMAND") + "\n";
+        } else if(input.equals(COMMAND.get("LIST_MOVIES"))) {
+            status = STATUS.get("LIST_MOVIES");
+            return getlistMovies() + HINT_INFO.get("MOVIE_COMMAND") + "\n";
         } else if(input.equals(COMMAND.get("EXIT"))) {
             return HINT_INFO.get("EXIT");
         }
