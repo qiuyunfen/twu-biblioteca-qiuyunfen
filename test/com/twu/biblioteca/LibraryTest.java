@@ -70,6 +70,11 @@ public class LibraryTest {
     public void should_retrurn_checkout_movie_fail() {
         assertEquals("That id is not available.\n", library.checkoutMovie(2));
     }
+
+    @Test
+    public void should_return_return_fail() {
+        assertEquals("That is not a valid id to return.\n", library.returnMovie(1));
+    }
     @After
     public void tearDown() {
         library = null;
