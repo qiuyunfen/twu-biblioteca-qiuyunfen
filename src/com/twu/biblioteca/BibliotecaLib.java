@@ -30,7 +30,8 @@ public class BibliotecaLib {
         HINT_INFO.put("BOOK_COMMAND", "1.check out book\n2.return book");
         HINT_INFO.put("CHECK_OUT_BOOK_ID", "please input which book you want to check out:");
         HINT_INFO.put("RETURN_BOOK_ID", "please input which book you want to return:");
-        HINT_INFO.put("CHECK_OUT_SUCCESS", "Thank you! Enjoy the book");
+        HINT_INFO.put("CHECK_OUT_BOOK_SUCCESS", "Thank you! Enjoy the book");
+        HINT_INFO.put("CHECK_OUT_MOVIE_SUCCESS", "Thank you! Enjoy the movie");
         HINT_INFO.put("CHECK_OUT_FAIL", "That book is not available.");
         HINT_INFO.put("RETURN_SUCCESS", "Thank you for returning the book.");
         HINT_INFO.put("RETURN_FAIL", "That is not a valid book to return.");
@@ -136,7 +137,7 @@ public class BibliotecaLib {
                 ArrayList<String> checkOutUsers = book.getCheckOutUser();
                 checkOutUsers.add(user.getName());
                 book.setCheckOutUser(checkOutUsers);
-                return HINT_INFO.get("CHECK_OUT_SUCCESS") + "\n";
+                return HINT_INFO.get("CHECK_OUT_BOOK_SUCCESS") + "\n";
             }
         }
         return HINT_INFO.get("CHECK_OUT_FAIL") + "\n";
@@ -169,6 +170,17 @@ public class BibliotecaLib {
         return msg;
     }
 
+    public String checkoutMovie(int movieId) {
+        for(Movie movie: movies) {
+            if(movieId == movie.getId()) {
+                ArrayList<String> checkOutUsers = movie.getCheckOutUser();
+                checkOutUsers.add(user.getName());
+                movie.setCheckOutUser(checkOutUsers);
+                return HINT_INFO.get("CHECK_OUT_MOVIE_SUCCESS") + "\n";
+            }
+        }
+        return HINT_INFO.get("CHECK_OUT_FAIL") + "\n";
+    }
     public String printWelcomeMsg() {
         return user.getName() + HINT_INFO.get("WELCOME_MESSAGE") + "\n";
     }

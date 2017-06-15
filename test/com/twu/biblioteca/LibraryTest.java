@@ -61,7 +61,7 @@ public class LibraryTest {
 
     @Test
     public void should_return_checkout_movie_success() {
-        assertEquals("Thank you! Enjoy the Movie\n", library.checkOutMovie());
+        assertEquals("Thank you! Enjoy the movie\n", library.checkoutMovie(1));
     }
     @After
     public void tearDown() {
