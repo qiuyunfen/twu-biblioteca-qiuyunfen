@@ -1,6 +1,8 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.model.Book;
+import com.twu.biblioteca.model.LibraryThing;
+import com.twu.biblioteca.model.Movie;
 import com.twu.biblioteca.model.User;
 import org.junit.After;
 import org.junit.Before;

@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.model.Book;
+import com.twu.biblioteca.model.LibraryThing;
 import com.twu.biblioteca.model.Movie;
 import com.twu.biblioteca.model.User;
 
@@ -131,17 +132,7 @@ public class BibliotecaLib {
         return msg;
     }
 
-    public String checkoutBook(int bookId) {
-        for(Book book: books) {
-            if(bookId == book.getId() && book.getCheckOutUser().size() == 0) {
-                ArrayList<String> checkOutUsers = book.getCheckOutUser();
-                checkOutUsers.add(user.getName());
-                book.setCheckOutUser(checkOutUsers);
-                return HINT_INFO.get("CHECK_OUT_BOOK_SUCCESS") + "\n";
-            }
-        }
-        return HINT_INFO.get("CHECK_OUT_FAIL") + "\n";
-    }
+
 
     public String returnBook(int bookId) {
         for(Book book: books) {
@@ -170,17 +161,32 @@ public class BibliotecaLib {
         return msg;
     }
 
+    public String checkoutBook(int bookId) {
+        for(Book book: books) {
+            if(bookId == book.getId() && book.getCheckOutUser().size() == 0) {
+                addUsertoCheckList(book);
+                return HINT_INFO.get("CHECK_OUT_BOOK_SUCCESS") + "\n";
+            }
+        }
+        return HINT_INFO.get("CHECK_OUT_FAIL") + "\n";
+    }
+
     public String checkoutMovie(int movieId) {
         for(Movie movie: movies) {
             if(movieId == movie.getId()) {
-                ArrayList<String> checkOutUsers = movie.getCheckOutUser();
-                checkOutUsers.add(user.getName());
-                movie.setCheckOutUser(checkOutUsers);
+                addUsertoCheckList(movie);
                 return HINT_INFO.get("CHECK_OUT_MOVIE_SUCCESS") + "\n";
             }
         }
         return HINT_INFO.get("CHECK_OUT_FAIL") + "\n";
     }
+
+    private void addUsertoCheckList(LibraryThing movie) {
+        ArrayList<String> checkOutUsers = movie.getCheckOutUser();
+        checkOutUsers.add(user.getName());
+        movie.setCheckOutUser(checkOutUsers);
+    }
+
     public String printWelcomeMsg() {
         return user.getName() + HINT_INFO.get("WELCOME_MESSAGE") + "\n";
     }
