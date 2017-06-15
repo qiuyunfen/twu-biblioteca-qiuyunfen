@@ -103,16 +103,18 @@ public class BibliotecaLib {
 
     public ArrayList<Book> initBooksList() {
         ArrayList<Book> books = new ArrayList<Book>();
-        books.add(new Book(1,"Test-driven Development: By Example", "Kent Beck", 2003, "Lucy"));
-        books.add(new Book(2,"Head First Java", "Sierra k", 2007, ""));
+        books.add(new Book(1,"Test-driven Development: By Example", "Kent Beck", 2003));
+        books.add(new Book(2,"Head First Java", "Sierra k", 2007));
+        ArrayList<String> checkOutUsers = books.get(0).getCheckOutUser();
+        checkOutUsers.add("Lucy");
         return books;
     }
 
     public String getUnCheckOutBooksList() {
         String msg = "List Books:\n";
         for(Book book : books) {
-            if(book.getCheckUserName().equals("")) {
-                msg += book.getBookId() + ":bookName:" + book.getBookName()  + ",author:" + book.getAuthor() + ",year:" + book.getYear() + "\n";
+            if(book.getCheckOutUser().size() == 0) {
+                msg += book.getId() + ":bookName:" + book.getName()  + ",author:" + book.getAuthor() + ",year:" + book.getYear() + "\n";
             }
         }
         return msg;
@@ -121,8 +123,8 @@ public class BibliotecaLib {
     public String getCheckoutBooksList() {
         String msg = "The books you have checked out:\n";
         for(Book book : books) {
-            if(book.getCheckUserName().equals(user.getName())) {
-                msg += book.getBookId() + ":bookName:" + book.getBookName()  + ",author:" + book.getAuthor() + ",year:" + book.getYear() + "\n";
+            if(book.getCheckOutUser().size() > 0 && book.getCheckOutUser().get(0).equals(user.getName())) {
+                msg += book.getId() + ":bookName:" + book.getName()  + ",author:" + book.getAuthor() + ",year:" + book.getYear() + "\n";
             }
         }
         return msg;
@@ -130,8 +132,10 @@ public class BibliotecaLib {
 
     public String checkoutBook(int bookId) {
         for(Book book: books) {
-            if(bookId == book.getBookId() && book.getCheckUserName().equals("")) {
-                book.setCheckUserName(user.getName());
+            if(bookId == book.getId() && book.getCheckOutUser().size() == 0) {
+                ArrayList<String> checkOutUsers = book.getCheckOutUser();
+                checkOutUsers.add(user.getName());
+                book.setCheckOutUser(checkOutUsers);
                 return HINT_INFO.get("CHECK_OUT_SUCCESS") + "\n";
             }
         }
@@ -140,8 +144,10 @@ public class BibliotecaLib {
 
     public String returnBook(int bookId) {
         for(Book book: books) {
-            if(book.getBookId() == bookId && book.getCheckUserName().equals(user.getName())) {
-                book.setCheckUserName("");
+            if(book.getId() == bookId && book.getCheckOutUser().size() > 0 && book.getCheckOutUser().get(0).equals(user.getName())) {
+                ArrayList<String> checkOutUsers = book.getCheckOutUser();
+                checkOutUsers.clear();
+                book.setCheckOutUser(checkOutUsers);
                 return HINT_INFO.get("RETURN_SUCCESS") + "\n";
             }
         }
@@ -157,7 +163,7 @@ public class BibliotecaLib {
     public String getlistMovies() {
         String msg = "List Movies:\n";
         for(Movie movie : movies) {
-            msg += movie.getMovieId() + ":movieName:" + movie.getMovieName()  + ",director:" + movie.getDirector() + ",year:" + movie.getYear() + ",rating:" +
+            msg += movie.getId() + ":movieName:" + movie.getName()  + ",director:" + movie.getDirector() + ",year:" + movie.getYear() + ",rating:" +
                     movie.getRating() + "\n";
         }
         return msg;
