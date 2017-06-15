@@ -31,4 +31,21 @@ public class LibraryThing {
     public void setYear(int year) {
         this.year = year;
     }
+
+    public ArrayList<String> getCheckOutUser() {
+        return checkOutUser;
+    }
+
+    public void setCheckOutUser(ArrayList<String> checkOutUser) {
+        this.checkOutUser = checkOutUser;
+    }
+
+    public LibraryThing(int id, String name, int year) {
+        this.id = id;
+        this.name = name;
+        this.year = year;
+        this.checkOutUser = new ArrayList<String>();
+    }
+
+    public LibraryThing() {}
 }
