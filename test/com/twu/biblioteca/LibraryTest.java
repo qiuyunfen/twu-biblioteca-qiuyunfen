@@ -75,6 +75,11 @@ public class LibraryTest {
     public void should_return_return_fail() {
         assertEquals("That is not a valid id to return.\n", library.returnMovie(1));
     }
+
+    @Test
+    public void should_return_user_information() {
+        assertEquals("Lucy,531802979@qq.com,swust,18980131432",library.displayUserInfo());
+    }
     @After
     public void tearDown() {
         library = null;
