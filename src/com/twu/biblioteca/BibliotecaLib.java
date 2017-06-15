@@ -7,6 +7,7 @@ import com.twu.biblioteca.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class BibliotecaLib {
     public HashMap<String, String> HINT_INFO = new HashMap<String, String>();
@@ -70,9 +71,17 @@ public class BibliotecaLib {
             return processCheckout(input);
         } else if(status == STATUS.get("RETURN")) {
             status = STATUS.get("SIGN_IN");
-            return returnBook(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
+            return processReturn(input);
         }
         return "";
+    }
+
+    private String processReturn(String input) {
+        if(flag.equals(COMMAND.get("LIST_BOOKS"))) {
+            return returnBook(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
+        } else {
+            return returnMovie(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
+        }
     }
 
     private String processCheckout(String input) {
