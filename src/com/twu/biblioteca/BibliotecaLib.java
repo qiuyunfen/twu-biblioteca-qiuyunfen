@@ -80,21 +80,6 @@ public class BibliotecaLib {
         return "";
     }
 
-    private String processReturn(String input) {
-        if(flag.equals(COMMAND.get("LIST_BOOKS"))) {
-            return returnBack(Integer.parseInt(input), books) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
-        } else {
-            return returnBack(Integer.parseInt(input), movies) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
-        }
-    }
-
-    private String processCheckout(String input) {
-        if(flag.equals(COMMAND.get("LIST_BOOKS"))) {
-            return checkOut(Integer.parseInt(input), books) + HINT_INFO.get("MAIN_COMMAND") + "\n";
-        } else {
-            return checkOut(Integer.parseInt(input), movies) + HINT_INFO.get("MAIN_COMMAND") + "\n";
-        }
-    }
 
     private String processStatus(String input) {
         if(input.equals(COMMAND.get("CHECK_OUT"))) {
@@ -125,6 +110,22 @@ public class BibliotecaLib {
         return "";
     }
 
+    private String processReturn(String input) {
+        if(flag.equals(COMMAND.get("LIST_BOOKS"))) {
+            return returnBack(Integer.parseInt(input), books) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
+        } else {
+            return returnBack(Integer.parseInt(input), movies) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
+        }
+    }
+
+    private String processCheckout(String input) {
+        if(flag.equals(COMMAND.get("LIST_BOOKS"))) {
+            return checkOut(Integer.parseInt(input), books) + HINT_INFO.get("MAIN_COMMAND") + "\n";
+        } else {
+            return checkOut(Integer.parseInt(input), movies) + HINT_INFO.get("MAIN_COMMAND") + "\n";
+        }
+    }
+
     public ArrayList<Book> initBooksList() {
         ArrayList<Book> books = new ArrayList<Book>();
         books.add(new Book(1,"Test-driven Development: By Example", "Kent Beck", 2003));
@@ -140,6 +141,13 @@ public class BibliotecaLib {
         users.add(new User("Tom", "qwiud@swust.edu.cn", "swust", "12345678910","234-5678","111"));
         return users;
     }
+
+    public ArrayList<Movie> initMoviesList() {
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+        movies.add(new Movie(1,"Wonder Woman", 2017, "Patty Jenkins", 7.3));
+        return movies;
+    }
+
     public String getUnCheckOutBooksList() {
         String msg = "List Books:\n";
         for(Book book : books) {
@@ -160,6 +168,15 @@ public class BibliotecaLib {
         return msg;
     }
 
+    public String getlistMovies() {
+        String msg = "List Movies:\n";
+        for(Movie movie : movies) {
+            msg += movie.getId() + ":movieName:" + movie.getName()  + ",director:" + movie.getDirector() + ",year:" + movie.getYear() + ",rating:" +
+                    movie.getRating() + "\n";
+        }
+        return msg;
+    }
+
     public String getCheckoutMoviesList() {
         String msg = "You have checked out:\n";
         for(Movie movie : movies) {
@@ -170,6 +187,8 @@ public class BibliotecaLib {
         }
         return msg;
     }
+
+
     public <T extends LibraryThing> String returnBack(int id, ArrayList<T> list) {
         for(T thing: list) {
             if(thing.getId() == id && thing.getCheckOutUser().size() > 0 && thing.getCheckOutUser().get(0).equals(curUser.getName())) {
@@ -180,20 +199,6 @@ public class BibliotecaLib {
         return HINT_INFO.get("RETURN_FAIL") + "\n";
     }
 
-    public ArrayList<Movie> initMoviesList() {
-        ArrayList<Movie> movies = new ArrayList<Movie>();
-        movies.add(new Movie(1,"Wonder Woman", 2017, "Patty Jenkins", 7.3));
-        return movies;
-    }
-
-    public String getlistMovies() {
-        String msg = "List Movies:\n";
-        for(Movie movie : movies) {
-            msg += movie.getId() + ":movieName:" + movie.getName()  + ",director:" + movie.getDirector() + ",year:" + movie.getYear() + ",rating:" +
-                    movie.getRating() + "\n";
-        }
-        return msg;
-    }
     public <T extends LibraryThing> String checkOut(int id, ArrayList<T> list) {
         for(T thing: list) {
             if(id == thing.getId() && thing.getCheckOutUser().size() == 0) {
