@@ -48,4 +48,8 @@ public class LibraryThing {
     }
 
     public LibraryThing() {}
+
+    public void checkOut(String userName) {
+        this.checkOutUser.add(userName);
+    }
 }

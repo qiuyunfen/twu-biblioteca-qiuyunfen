@@ -38,22 +38,22 @@ public class LibraryTest {
 
     @Test
     public void should_return_checkout_success() {
-        assertEquals("Thank you! Enjoy the book\n",library.checkoutBook(2));
+        assertEquals("Thank you! Enjoy!\n",library.checkoutBook(2));
     }
 
     @Test
     public void should_return_checkout_fail() {
-        assertEquals("That book is not available.\n",library.checkoutBook(3));
+        assertEquals("That id is not available.\n",library.checkoutBook(3));
     }
 
     @Test
     public void should_return_return_book_success() {
-        assertEquals("Thank you for returning the book.\n",library.returnBook(1));
+        assertEquals("Thank you for returning.\n",library.returnBook(1));
     }
 
     @Test
     public void should_return_return_book_fail() {
-        assertEquals("That is not a valid book to return.\n", library.returnBook(3));
+        assertEquals("That is not a valid id to return.\n", library.returnBook(3));
     }
 
     @Test
@@ -63,12 +63,12 @@ public class LibraryTest {
 
     @Test
     public void should_return_checkout_movie_success() {
-        assertEquals("Thank you! Enjoy the movie\n", library.checkoutMovie(1));
+        assertEquals("Thank you! Enjoy!\n", library.checkoutMovie(1));
     }
 
     @Test
     public void should_retrurn_checkout_movie_fail() {
-        assertEquals("That movie is not available.\n", library.checkoutMovie(2));
+        assertEquals("That id is not available.\n", library.checkoutMovie(2));
     }
     @After
     public void tearDown() {

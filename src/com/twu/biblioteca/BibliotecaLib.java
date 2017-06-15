@@ -16,6 +16,7 @@ public class BibliotecaLib {
     public User user;
     public ArrayList<Book> books;
     public ArrayList<Movie> movies;
+    public String flag = "";
 
     public void init() {
         initHintInfo();
@@ -28,16 +29,13 @@ public class BibliotecaLib {
     public void initHintInfo() {
         HINT_INFO.put("WELCOME_MESSAGE", ",Welcome to Biblioteca Library");
         HINT_INFO.put("MAIN_COMMAND", "1.List Books\n2.List Movies\n3.exit");
-        HINT_INFO.put("BOOK_COMMAND", "1.check out book\n2.return book");
-        HINT_INFO.put("CHECK_OUT_BOOK_ID", "please input which book you want to check out:");
-        HINT_INFO.put("RETURN_BOOK_ID", "please input which book you want to return:");
-        HINT_INFO.put("CHECK_OUT_BOOK_SUCCESS", "Thank you! Enjoy the book");
-        HINT_INFO.put("CHECK_OUT_MOVIE_SUCCESS", "Thank you! Enjoy the movie");
-        HINT_INFO.put("CHECK_OUT_BOOK_FAIL", "That book is not available.");
-        HINT_INFO.put("CHECK_OUT_MOVIE_FAIL", "That movie is not available.");
-        HINT_INFO.put("RETURN_SUCCESS", "Thank you for returning the book.");
-        HINT_INFO.put("RETURN_FAIL", "That is not a valid book to return.");
-        HINT_INFO.put("MOVIE_COMMAND","1.check out movie\n2.return movie");
+        HINT_INFO.put("LIST_COMMAND","1.check out\n2.return");
+        HINT_INFO.put("CHECK_OUT_ID", "please input the id you want to check out:");
+        HINT_INFO.put("RETURN_ID", "please input the id you want to return:");
+        HINT_INFO.put("CHECK_OUT_SUCCESS", "Thank you! Enjoy!");
+        HINT_INFO.put("CHECK_OUT_FAIL", "That id is not available.");
+        HINT_INFO.put("RETURN_SUCCESS", "Thank you for returning.");
+        HINT_INFO.put("RETURN_FAIL", "That is not a valid id to return.");
         HINT_INFO.put("EXIT","quit");
     }
 
@@ -45,10 +43,9 @@ public class BibliotecaLib {
     public void initStatus() {
         STATUS.put("MAIN_DEFAULT", -1);
         STATUS.put("SIGN_IN", 0);
-        STATUS.put("LIST_BOOKS", 1);
-        STATUS.put("CHECK_OUT_BOOK", 2);
-        STATUS.put("RETURN_BOOK", 3);
-        STATUS.put("LIST_MOVIES", 4);
+        STATUS.put("LIST_THING", 1);
+        STATUS.put("CHECK_OUT", 2);
+        STATUS.put("RETURN", 3);
         status = STATUS.get("MAIN_DEFAULT");
     }
 
@@ -66,38 +63,46 @@ public class BibliotecaLib {
             return handleUserSignIn(input)  + HINT_INFO.get("MAIN_COMMAND") + "\n";
         } else if(status == STATUS.get("SIGN_IN")) {
             return processSignInStatus(input);
-        } else if(status == STATUS.get("LIST_BOOKS")) {
+        } else if(status == STATUS.get("LIST_THING")) {
             return  processStatus(input);
-        } else if(status == STATUS.get("CHECK_OUT_BOOK")) {
+        } else if(status == STATUS.get("CHECK_OUT")) {
             status = STATUS.get("SIGN_IN");
-            return checkoutBook(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
-        } else if(status == STATUS.get("RETURN_BOOK")) {
+            return processCheckout(input);
+        } else if(status == STATUS.get("RETURN")) {
             status = STATUS.get("SIGN_IN");
             return returnBook(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
-        } else if(status == STATUS.get("LIST_MOVIES")) {
-            return processStatus(input);
         }
         return "";
     }
 
+    private String processCheckout(String input) {
+        if(flag.equals(COMMAND.get("LIST_BOOKS"))) {
+            return checkoutBook(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
+        } else {
+            return checkoutMovie(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
+        }
+    }
+
     private String processStatus(String input) {
         if(input.equals(COMMAND.get("CHECK_OUT"))) {
-            status = STATUS.get("CHECK_OUT_BOOK");
-            return HINT_INFO.get("CHECK_OUT_BOOK_ID");
+            status = STATUS.get("CHECK_OUT");
+            return HINT_INFO.get("CHECK_OUT_ID");
         } else if(input.equals(COMMAND.get("RETURM"))) {
-            status = STATUS.get("RETURN_BOOK");
-            return HINT_INFO.get("RETURN_BOOK_ID");
+            status = STATUS.get("RETURN");
+            return HINT_INFO.get("RETURN_ID");
         }
         return null;
     }
 
     private String processSignInStatus(String input) {
         if(input.equals(COMMAND.get("LIST_BOOKS"))) {
-            status = STATUS.get("LIST_BOOKS");
-            return getUnCheckOutBooksList() + getCheckoutBooksList() + HINT_INFO.get("BOOK_COMMAND") + "\n";
+            flag = COMMAND.get("LIST_BOOKS");
+            status = STATUS.get("LIST_THING");
+            return getUnCheckOutBooksList() + getCheckoutBooksList() + HINT_INFO.get("LIST_COMMAND") + "\n";
         } else if(input.equals(COMMAND.get("LIST_MOVIES"))) {
-            status = STATUS.get("LIST_MOVIES");
-            return getlistMovies() + HINT_INFO.get("MOVIE_COMMAND") + "\n";
+            flag = COMMAND.get("LIST_MOVIES");
+            status = STATUS.get("LIST_THING");
+            return getlistMovies() + getCheckoutMoviesList() + HINT_INFO.get("LIST_COMMAND") + "\n";
         } else if(input.equals(COMMAND.get("EXIT"))) {
             return HINT_INFO.get("EXIT");
         }
@@ -133,7 +138,16 @@ public class BibliotecaLib {
         return msg;
     }
 
-
+    public String getCheckoutMoviesList() {
+        String msg = "You have checked out:\n";
+        for(Movie movie : movies) {
+            if(movie.getCheckOutUser().size() > 0 && movie.getCheckOutUser().contains(user.getName())) {
+                msg += movie.getId() + ":movieName:" + movie.getName()  + ",director:" + movie.getDirector() + ",year:" + movie.getYear() + ",rating:" +
+                                movie.getRating() + "\n";
+            }
+        }
+        return msg;
+    }
 
     public String returnBook(int bookId) {
         for(Book book: books) {
@@ -165,21 +179,21 @@ public class BibliotecaLib {
     public String checkoutBook(int bookId) {
         for(Book book: books) {
             if(bookId == book.getId() && book.getCheckOutUser().size() == 0) {
-                addUsertoCheckList(book);
-                return HINT_INFO.get("CHECK_OUT_BOOK_SUCCESS") + "\n";
+                book.checkOut(user.getName());
+                return HINT_INFO.get("CHECK_OUT_SUCCESS") + "\n";
             }
         }
-        return HINT_INFO.get("CHECK_OUT_BOOK_FAIL") + "\n";
+        return HINT_INFO.get("CHECK_OUT_FAIL") + "\n";
     }
 
     public String checkoutMovie(int movieId) {
         for(Movie movie: movies) {
             if(movieId == movie.getId()) {
                 addUsertoCheckList(movie);
-                return HINT_INFO.get("CHECK_OUT_MOVIE_SUCCESS") + "\n";
+                return HINT_INFO.get("CHECK_OUT_SUCCESS") + "\n";
             }
         }
-        return HINT_INFO.get("CHECK_OUT_MOVIE_FAIL") + "\n";
+        return HINT_INFO.get("CHECK_OUT_FAIL") + "\n";
     }
 
     private void addUsertoCheckList(LibraryThing movie) {
