@@ -59,6 +59,10 @@ public class LibraryTest {
         assertEquals("List Movies:\n1:movieName:Wonder Woman,director:Patty Jenkins,year:2017,rating:7.3\n", library.getlistMovies());
     }
 
+    @Test
+    public void should_return_checkout_movie_success() {
+        assertEquals("Thank you! Enjoy the Movie\n", library.checkOutMovie());
+    }
     @After
     public void tearDown() {
         library = null;
