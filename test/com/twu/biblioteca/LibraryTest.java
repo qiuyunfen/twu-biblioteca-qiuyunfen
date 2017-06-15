@@ -56,7 +56,7 @@ public class LibraryTest {
 
     @Test
     public void should_return_list_movie() {
-        assertEquals("List Movies:\n2:movieName:Wonder Woman,year:2017,director:Patty Jenkins,rating:7.3\n", library.listMovies());
+        assertEquals("List Movies:\n1:movieName:Wonder Woman,director:Patty Jenkins,year:2017,rating:7.3\n", library.getlistMovies());
     }
 
     @After

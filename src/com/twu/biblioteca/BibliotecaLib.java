@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.model.Book;
+import com.twu.biblioteca.model.Movie;
 import com.twu.biblioteca.model.User;
 
 import java.util.ArrayList;
@@ -13,12 +14,14 @@ public class BibliotecaLib {
     public static int status ;
     public User user;
     public ArrayList<Book> books;
+    public ArrayList<Movie> movies;
 
     public void init() {
         initHintInfo();
         initStatus();
         initCommand();
         books = initBooksList();
+        movies = initMoviesList();
     }
 
     public void initHintInfo() {
@@ -137,6 +140,21 @@ public class BibliotecaLib {
             }
         }
         return HINT_INFO.get("RETURN_FAIL") + "\n";
+    }
+
+    public ArrayList<Movie> initMoviesList() {
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+        movies.add(new Movie(1,"Wonder Woman", 2017, "Patty Jenkins", 7.3));
+        return movies;
+    }
+
+    public String getlistMovies() {
+        String msg = "List Movies:\n";
+        for(Movie movie : movies) {
+            msg += movie.getMovieId() + ":movieName:" + movie.getMovieName()  + ",director:" + movie.getDirector() + ",year:" + movie.getYear() + ",rating:" +
+                    movie.getRating() + "\n";
+        }
+        return msg;
     }
 
     public String printWelcomeMsg() {

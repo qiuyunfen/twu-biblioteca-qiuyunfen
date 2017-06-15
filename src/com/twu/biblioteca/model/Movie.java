@@ -1,10 +1,19 @@
 package com.twu.biblioteca.model;
 
 public class Movie {
+    private int movieId;
     private String movieName;
     private int year;
     private String director;
     private double rating;
+
+    public int getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
+    }
 
     public String getMovieName() {
         return movieName;
@@ -38,7 +47,8 @@ public class Movie {
         this.rating = rating;
     }
 
-    public Movie(String movieName,int year, String director, double rating) {
+    public Movie(int movieId, String movieName,int year, String director, double rating) {
+        this.movieId = movieId;
         this.movieName = movieName;
         this.year = year;
         this.director = director;
