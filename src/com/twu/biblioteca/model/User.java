@@ -5,6 +5,9 @@ public class User {
     private String email;
     private String address;
     private String phoneNumber;
+    private String password;
+    private String account;
+
     public String getName() {
         return name;
     }
@@ -40,11 +43,30 @@ public class User {
     public User(String name) {
         this.name = name;
     }
-    public User(String name, String email, String address, String phoneNumber) {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+    public User(String name, String email, String address, String phoneNumber, String account, String password) {
         this.name = name;
         this.email = email;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.account = account;
+        this.password = password;
     }
+
+
     public User() {}
 }

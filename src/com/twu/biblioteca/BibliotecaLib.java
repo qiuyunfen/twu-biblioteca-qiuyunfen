@@ -135,8 +135,8 @@ public class BibliotecaLib {
 
     public ArrayList<User> initUsersList() {
         ArrayList<User> users = new ArrayList<User>();
-        users.add(new User("Lucy", "531802979@qq.com", "swust", "18980131432"));
-        users.add(new User("Tom", "qwiud@swust.edu.cn", "swust", "12345678910"));
+        users.add(new User("Lucy", "531802979@qq.com", "swust", "18980131432","123-4567","111"));
+        users.add(new User("Tom", "qwiud@swust.edu.cn", "swust", "12345678910","234-5678","111"));
         return users;
     }
     public String getUnCheckOutBooksList() {
