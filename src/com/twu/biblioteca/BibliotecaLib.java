@@ -14,9 +14,10 @@ public class BibliotecaLib {
     public HashMap<String, Integer> STATUS = new HashMap<String, Integer>();
     public HashMap<String, String> COMMAND = new HashMap<String, String>();
     public static int status ;
-    public User user;
+    public User curUser;
     public ArrayList<Book> books;
     public ArrayList<Movie> movies;
+    public ArrayList<User> users;
     public String flag = "";
 
     public void init() {
@@ -25,6 +26,7 @@ public class BibliotecaLib {
         initCommand();
         books = initBooksList();
         movies = initMoviesList();
+        users = initUsersList();
     }
 
     public void initHintInfo() {
@@ -127,6 +129,12 @@ public class BibliotecaLib {
         return books;
     }
 
+    public ArrayList<User> initUsersList() {
+        ArrayList<User> users = new ArrayList<User>();
+        users.add(new User("Lucy", "531802979@qq.com", "swust", "18980131432"));
+        users.add(new User("Tom", "qwiud@swust.edu.cn", "swust", "12345678910"));
+        return users;
+    }
     public String getUnCheckOutBooksList() {
         String msg = "List Books:\n";
         for(Book book : books) {
@@ -140,7 +148,7 @@ public class BibliotecaLib {
     public String getCheckoutBooksList() {
         String msg = "The books you have checked out:\n";
         for(Book book : books) {
-            if(book.getCheckOutUser().size() > 0 && book.getCheckOutUser().get(0).equals(user.getName())) {
+            if(book.getCheckOutUser().size() > 0 && book.getCheckOutUser().get(0).equals(curUser.getName())) {
                 msg += book.getId() + ":bookName:" + book.getName()  + ",author:" + book.getAuthor() + ",year:" + book.getYear() + "\n";
             }
         }
@@ -150,7 +158,7 @@ public class BibliotecaLib {
     public String getCheckoutMoviesList() {
         String msg = "You have checked out:\n";
         for(Movie movie : movies) {
-            if(movie.getCheckOutUser().size() > 0 && movie.getCheckOutUser().contains(user.getName())) {
+            if(movie.getCheckOutUser().size() > 0 && movie.getCheckOutUser().contains(curUser.getName())) {
                 msg += movie.getId() + ":movieName:" + movie.getName()  + ",director:" + movie.getDirector() + ",year:" + movie.getYear() + ",rating:" +
                                 movie.getRating() + "\n";
             }
@@ -160,8 +168,8 @@ public class BibliotecaLib {
 
     public String returnBook(int bookId) {
         for(Book book: books) {
-            if(book.getId() == bookId && book.getCheckOutUser().size() > 0 && book.getCheckOutUser().get(0).equals(user.getName())) {
-                book.returnBack(user.getName());
+            if(book.getId() == bookId && book.getCheckOutUser().size() > 0 && book.getCheckOutUser().get(0).equals(curUser.getName())) {
+                book.returnBack(curUser.getName());
                 return HINT_INFO.get("RETURN_SUCCESS") + "\n";
             }
         }
@@ -170,8 +178,8 @@ public class BibliotecaLib {
 
     public String returnMovie(int movieId) {
         for(Movie movie: movies) {
-            if(movie.getId() == movieId && movie.getCheckOutUser().size() > 0 && movie.getCheckOutUser().get(0).equals(user.getName())) {
-                movie.returnBack(user.getName());
+            if(movie.getId() == movieId && movie.getCheckOutUser().size() > 0 && movie.getCheckOutUser().get(0).equals(curUser.getName())) {
+                movie.returnBack(curUser.getName());
                 return HINT_INFO.get("RETURN_SUCCESS") + "\n";
             }
         }
@@ -196,7 +204,7 @@ public class BibliotecaLib {
     public String checkoutBook(int bookId) {
         for(Book book: books) {
             if(bookId == book.getId() && book.getCheckOutUser().size() == 0) {
-                book.checkOut(user.getName());
+                book.checkOut(curUser.getName());
                 return HINT_INFO.get("CHECK_OUT_SUCCESS") + "\n";
             }
         }
@@ -215,21 +223,29 @@ public class BibliotecaLib {
 
     private void addUsertoCheckList(LibraryThing movie) {
         ArrayList<String> checkOutUsers = movie.getCheckOutUser();
-        checkOutUsers.add(user.getName());
+        checkOutUsers.add(curUser.getName());
         movie.setCheckOutUser(checkOutUsers);
     }
 
     public String printWelcomeMsg() {
-        return user.getName() + HINT_INFO.get("WELCOME_MESSAGE") + "\n";
+        return curUser.getName() + HINT_INFO.get("WELCOME_MESSAGE") + "\n";
     }
 
     public User userSignIn(String name) {
-       user = new User(name);
-       return user;
+       for(User cuser: users) {
+           if(cuser.getName().equals(name)) {
+               return cuser;
+           }
+       }
+       return null;
     }
 
     public String handleUserSignIn(String input) {
-        user = userSignIn(input);
+        curUser = userSignIn(input);
         return printWelcomeMsg();
+    }
+
+    public String displayUserInfo() {
+        return curUser.getName()+","+curUser.getEmail()+","+curUser.getAddress()+","+curUser.getPhoneNumber();
     }
 }

@@ -18,8 +18,8 @@ public class LibraryTest {
     @Before
     public void setUp() {
        library = new BibliotecaLib();
-       library.userSignIn("Lucy");
        library.init();
+       library.handleUserSignIn("Lucy");
     }
     @Test
     public void should_return_user_welcome_message() {
