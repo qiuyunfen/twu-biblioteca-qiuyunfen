@@ -31,6 +31,7 @@ public class BibliotecaLib {
 
     public void initHintInfo() {
         HINT_INFO.put("WELCOME_MESSAGE", ",Welcome to Biblioteca Library");
+        HINT_INFO.put("LOGIN_FAIL", "please enter current account");
         HINT_INFO.put("MAIN_COMMAND", "1.List Books\n2.List Movies\n3.display information\n4.exit");
         HINT_INFO.put("LIST_COMMAND","1.check out\n2.return");
         HINT_INFO.put("CHECK_OUT_ID", "please input the id you want to check out:");
@@ -218,26 +219,20 @@ public class BibliotecaLib {
     public String checkoutMovie(int movieId) {
         for(Movie movie: movies) {
             if(movieId == movie.getId()) {
-                addUsertoCheckList(movie);
+                movie.checkOut(curUser.getName());
                 return HINT_INFO.get("CHECK_OUT_SUCCESS") + "\n";
             }
         }
         return HINT_INFO.get("CHECK_OUT_FAIL") + "\n";
     }
 
-    private void addUsertoCheckList(LibraryThing movie) {
-        ArrayList<String> checkOutUsers = movie.getCheckOutUser();
-        checkOutUsers.add(curUser.getName());
-        movie.setCheckOutUser(checkOutUsers);
-    }
-
     public String printWelcomeMsg() {
         return curUser.getName() + HINT_INFO.get("WELCOME_MESSAGE") + "\n";
     }
 
-    public User userSignIn(String name) {
+    public User userSignIn(String account, String password) {
        for(User cuser: users) {
-           if(cuser.getName().equals(name)) {
+           if(cuser.getAccount().equals(account) && cuser.getPassword().equals(password)) {
                return cuser;
            }
        }
@@ -245,8 +240,13 @@ public class BibliotecaLib {
     }
 
     public String handleUserSignIn(String input) {
-        curUser = userSignIn(input);
-        return printWelcomeMsg();
+        String[] infos = input.split(",");
+        curUser = userSignIn(infos[0], infos[1]);
+        if(curUser != null) {
+            return printWelcomeMsg();
+        } else {
+            return HINT_INFO.get("LOGIN_FAIL");
+        }
     }
 
     public String displayUserInfo() {

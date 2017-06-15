@@ -19,7 +19,7 @@ public class LibraryTest {
     public void setUp() {
        library = new BibliotecaLib();
        library.init();
-       library.handleUserSignIn("Lucy");
+       library.handleUserSignIn("123-4567,111");
     }
     @Test
     public void should_return_user_welcome_message() {
