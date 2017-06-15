@@ -31,7 +31,7 @@ public class BibliotecaLib {
 
     public void initHintInfo() {
         HINT_INFO.put("WELCOME_MESSAGE", ",Welcome to Biblioteca Library");
-        HINT_INFO.put("MAIN_COMMAND", "1.List Books\n2.List Movies\n3.exit");
+        HINT_INFO.put("MAIN_COMMAND", "1.List Books\n2.List Movies\n3.display information\n4.exit");
         HINT_INFO.put("LIST_COMMAND","1.check out\n2.return");
         HINT_INFO.put("CHECK_OUT_ID", "please input the id you want to check out:");
         HINT_INFO.put("RETURN_ID", "please input the id you want to return:");
@@ -55,7 +55,8 @@ public class BibliotecaLib {
     public void initCommand() {
         COMMAND.put("LIST_BOOKS", "1");
         COMMAND.put("LIST_MOVIES", "2");
-        COMMAND.put("EXIT", "3");
+        COMMAND.put("DISPLAY_INFORMATION", "3");
+        COMMAND.put("EXIT", "4");
         COMMAND.put("CHECK_OUT", "1");
         COMMAND.put("RETURM", "2");
     }
@@ -114,6 +115,9 @@ public class BibliotecaLib {
             flag = COMMAND.get("LIST_MOVIES");
             status = STATUS.get("LIST_THING");
             return getlistMovies() + getCheckoutMoviesList() + HINT_INFO.get("LIST_COMMAND") + "\n";
+        } else if(input.equals(COMMAND.get("DISPLAY_INFORMATION"))) {
+            status = STATUS.get("SIGN_IN");
+            return displayUserInfo() +  HINT_INFO.get("MAIN_COMMAND") + "\n";
         } else if(input.equals(COMMAND.get("EXIT"))) {
             return HINT_INFO.get("EXIT");
         }
@@ -246,6 +250,6 @@ public class BibliotecaLib {
     }
 
     public String displayUserInfo() {
-        return curUser.getName()+","+curUser.getEmail()+","+curUser.getAddress()+","+curUser.getPhoneNumber();
+        return curUser.getName()+","+curUser.getEmail()+","+curUser.getAddress()+","+curUser.getPhoneNumber() + "\n";
     }
 }

@@ -78,7 +78,7 @@ public class LibraryTest {
 
     @Test
     public void should_return_user_information() {
-        assertEquals("Lucy,531802979@qq.com,swust,18980131432",library.displayUserInfo());
+        assertEquals("Lucy,531802979@qq.com,swust,18980131432\n",library.displayUserInfo());
     }
     @After
     public void tearDown() {
