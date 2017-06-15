@@ -90,7 +90,7 @@ public class BibliotecaLib {
 
     private String processCheckout(String input) {
         if(flag.equals(COMMAND.get("LIST_BOOKS"))) {
-            return checkoutBook(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
+            return checkOut(Integer.parseInt(input), books) + HINT_INFO.get("MAIN_COMMAND") + "\n";
         } else {
             return checkoutMovie(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
         }
@@ -204,6 +204,15 @@ public class BibliotecaLib {
                     movie.getRating() + "\n";
         }
         return msg;
+    }
+    public <T extends LibraryThing> String checkOut(int id, ArrayList<T> list) {
+        for(T thing: list) {
+            if(id == thing.getId() && thing.getCheckOutUser().size() == 0) {
+                thing.checkOut(curUser.getName());
+                return HINT_INFO.get("CHECK_OUT_SUCCESS") + "\n";
+            }
+        }
+        return HINT_INFO.get("CHECK_OUT_FAIL") + "\n";
     }
 
     public String checkoutBook(int bookId) {
