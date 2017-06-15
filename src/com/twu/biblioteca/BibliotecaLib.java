@@ -56,8 +56,8 @@ public class BibliotecaLib {
         COMMAND.put("LIST_BOOKS", "1");
         COMMAND.put("LIST_MOVIES", "2");
         COMMAND.put("EXIT", "3");
-        COMMAND.put("CHECK_OUT_BOOK", "1");
-        COMMAND.put("RETURM_BOOK", "2");
+        COMMAND.put("CHECK_OUT", "1");
+        COMMAND.put("RETURM", "2");
     }
 
     public String handleInput(String input) {
@@ -65,26 +65,26 @@ public class BibliotecaLib {
             status = STATUS.get("SIGN_IN");
             return handleUserSignIn(input)  + HINT_INFO.get("MAIN_COMMAND") + "\n";
         } else if(status == STATUS.get("SIGN_IN")) {
-            String x = processSignInStatus(input);
-            if (x != null) return x;
+            return processSignInStatus(input);
         } else if(status == STATUS.get("LIST_BOOKS")) {
-            String x = processListBookStatus(input);
-            if (x != null) return x;
+            return  processStatus(input);
         } else if(status == STATUS.get("CHECK_OUT_BOOK")) {
             status = STATUS.get("SIGN_IN");
             return checkoutBook(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
         } else if(status == STATUS.get("RETURN_BOOK")) {
             status = STATUS.get("SIGN_IN");
             return returnBook(Integer.parseInt(input)) +  HINT_INFO.get("MAIN_COMMAND") + "\n";
+        } else if(status == STATUS.get("LIST_MOVIES")) {
+            return processStatus(input);
         }
         return "";
     }
 
-    private String processListBookStatus(String input) {
-        if(input.equals(COMMAND.get("CHECK_OUT_BOOK"))) {
+    private String processStatus(String input) {
+        if(input.equals(COMMAND.get("CHECK_OUT"))) {
             status = STATUS.get("CHECK_OUT_BOOK");
             return HINT_INFO.get("CHECK_OUT_BOOK_ID");
-        } else if(input.equals(COMMAND.get("RETURM_BOOK"))) {
+        } else if(input.equals(COMMAND.get("RETURM"))) {
             status = STATUS.get("RETURN_BOOK");
             return HINT_INFO.get("RETURN_BOOK_ID");
         }
