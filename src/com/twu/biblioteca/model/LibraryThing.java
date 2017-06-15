@@ -52,4 +52,15 @@ public class LibraryThing {
     public void checkOut(String userName) {
         this.checkOutUser.add(userName);
     }
+
+    public void returnBack(String userName) {
+        int index = -1;
+        for(int i = 0; i < this.checkOutUser.size(); i++) {
+            if(this.checkOutUser.get(i).equals(userName)) {
+                index = i;
+                break;
+            }
+        }
+        this.checkOutUser.remove(index);
+    }
 }

@@ -152,9 +152,17 @@ public class BibliotecaLib {
     public String returnBook(int bookId) {
         for(Book book: books) {
             if(book.getId() == bookId && book.getCheckOutUser().size() > 0 && book.getCheckOutUser().get(0).equals(user.getName())) {
-                ArrayList<String> checkOutUsers = book.getCheckOutUser();
-                checkOutUsers.clear();
-                book.setCheckOutUser(checkOutUsers);
+                book.returnBack(user.getName());
+                return HINT_INFO.get("RETURN_SUCCESS") + "\n";
+            }
+        }
+        return HINT_INFO.get("RETURN_FAIL") + "\n";
+    }
+
+    public String returnMovie(int movieId) {
+        for(Movie movie: movies) {
+            if(movie.getId() == movieId && movie.getCheckOutUser().size() > 0 && movie.getCheckOutUser().get(0).equals(user.getName())) {
+                movie.returnBack(user.getName());
                 return HINT_INFO.get("RETURN_SUCCESS") + "\n";
             }
         }
