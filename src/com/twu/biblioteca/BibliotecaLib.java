@@ -96,7 +96,7 @@ public class BibliotecaLib {
         if(input.equals(COMMAND.get("LIST_BOOKS"))) {
             flag = COMMAND.get("LIST_BOOKS");
             status = STATUS.get("LIST_THING");
-            return getUnCheckOutBooksList() + generateBookStr() + HINT_INFO.get("LIST_COMMAND") + "\n";
+            return getUnCheckOutBooksList() + getCheckoutBooksList("You have checked out:\n") + HINT_INFO.get("LIST_COMMAND") + "\n";
         } else if(input.equals(COMMAND.get("LIST_MOVIES"))) {
             flag = COMMAND.get("LIST_MOVIES");
             status = STATUS.get("LIST_THING");
@@ -148,14 +148,19 @@ public class BibliotecaLib {
         return movies;
     }
 
-    public String generateBookStr() {
+    public String getCheckoutBooksList(String msg) {
         ArrayList<Book> checkoutBooks = getCheckoutList(books);
-        String msg = "List Books:\n";
+        return generateBookStr(checkoutBooks, msg);
+    }
+
+    public String generateBookStr(ArrayList<Book> checkoutBooks, String message) {
+        String msg = message;
         for(Book book : checkoutBooks) {
             msg += book.getId() + ":bookName:" + book.getName()  + ",author:" + book.getAuthor() + ",year:" + book.getYear() + "\n";
         }
         return msg;
     }
+
     public <T extends LibraryThing> ArrayList<T> getCheckoutList(ArrayList<T> things) {
         ArrayList<T> lists = new ArrayList<T>();
         for(T thing: things) {
@@ -170,16 +175,6 @@ public class BibliotecaLib {
         String msg = "List Books:\n";
         for(Book book : books) {
             if(book.getCheckOutUser().size() == 0) {
-                msg += book.getId() + ":bookName:" + book.getName()  + ",author:" + book.getAuthor() + ",year:" + book.getYear() + "\n";
-            }
-        }
-        return msg;
-    }
-
-    public String getCheckoutBooksList() {
-        String msg = "The books you have checked out:\n";
-        for(Book book : books) {
-            if(book.getCheckOutUser().size() > 0 && book.getCheckOutUser().get(0).equals(curUser.getName())) {
                 msg += book.getId() + ":bookName:" + book.getName()  + ",author:" + book.getAuthor() + ",year:" + book.getYear() + "\n";
             }
         }

@@ -39,7 +39,7 @@ public class LibraryTest {
 
     @Test
     public void should_return_checkout_book_list() {
-        assertEquals("The books you have checked out:\n1:bookName:Test-driven Development: By Example,author:Kent Beck,year:2003\n",library.getCheckoutBooksList());
+        assertEquals("You have checked out:\n1:bookName:Test-driven Development: By Example,author:Kent Beck,year:2003\n",library.getCheckoutBooksList("You have checked out:\n"));
     }
 
     @Test
