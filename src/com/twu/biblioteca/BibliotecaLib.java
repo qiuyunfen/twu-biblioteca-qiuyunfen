@@ -192,16 +192,18 @@ public class BibliotecaLib {
     }
 
     public String getCheckoutMoviesList() {
-        String msg = "You have checked out:\n";
-        for(Movie movie : movies) {
-            if(movie.getCheckOutUser().size() > 0 && movie.getCheckOutUser().contains(curUser.getName())) {
-                msg += movie.getId() + ":movieName:" + movie.getName()  + ",director:" + movie.getDirector() + ",year:" + movie.getYear() + ",rating:" +
-                                movie.getRating() + "\n";
-            }
+        ArrayList<Movie> checkoutMovies = getCheckoutList(movies);
+        return generateMovieStr(checkoutMovies, "You have checked out:\n");
+    }
+
+    public String generateMovieStr(ArrayList<Movie> checkoutMovies, String message) {
+        String msg = message;
+        for(Movie movie : checkoutMovies) {
+            msg += movie.getId() + ":movieName:" + movie.getName()  + ",director:" + movie.getDirector() + ",year:" + movie.getYear() + ",rating:" +
+                    movie.getRating() + "\n";
         }
         return msg;
     }
-
 
     public <T extends LibraryThing> String returnBack(int id, ArrayList<T> list) {
         for(T thing: list) {
