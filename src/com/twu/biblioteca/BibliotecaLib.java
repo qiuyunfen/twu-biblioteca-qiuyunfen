@@ -172,12 +172,13 @@ public class BibliotecaLib {
     }
 
     public String getUnCheckOutBooksList() {
-        String msg = "List Books:\n";
+        ArrayList<Book> unCheckoutBooks = new ArrayList<Book>();
         for(Book book : books) {
             if(book.getCheckOutUser().size() == 0) {
-                msg += book.getId() + ":bookName:" + book.getName()  + ",author:" + book.getAuthor() + ",year:" + book.getYear() + "\n";
+                unCheckoutBooks.add(book);
             }
         }
+        String msg = generateBookStr(unCheckoutBooks, "List Books:\n");
         return msg;
     }
 
