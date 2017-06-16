@@ -96,7 +96,7 @@ public class BibliotecaLib {
         if(input.equals(COMMAND.get("LIST_BOOKS"))) {
             flag = COMMAND.get("LIST_BOOKS");
             status = STATUS.get("LIST_THING");
-            return getUnCheckOutBooksList() + getCheckoutBooksList() + HINT_INFO.get("LIST_COMMAND") + "\n";
+            return getUnCheckOutBooksList() + generateBookStr() + HINT_INFO.get("LIST_COMMAND") + "\n";
         } else if(input.equals(COMMAND.get("LIST_MOVIES"))) {
             flag = COMMAND.get("LIST_MOVIES");
             status = STATUS.get("LIST_THING");
@@ -146,6 +146,24 @@ public class BibliotecaLib {
         ArrayList<Movie> movies = new ArrayList<Movie>();
         movies.add(new Movie(1,"Wonder Woman", 2017, "Patty Jenkins", 7.3));
         return movies;
+    }
+
+    public String generateBookStr() {
+        ArrayList<Book> checkoutBooks = getCheckoutList(books);
+        String msg = "List Books:\n";
+        for(Book book : checkoutBooks) {
+            msg += book.getId() + ":bookName:" + book.getName()  + ",author:" + book.getAuthor() + ",year:" + book.getYear() + "\n";
+        }
+        return msg;
+    }
+    public <T extends LibraryThing> ArrayList<T> getCheckoutList(ArrayList<T> things) {
+        ArrayList<T> lists = new ArrayList<T>();
+        for(T thing: things) {
+            if(thing.getCheckOutUser().size() > 0 && thing.getCheckOutUser().contains(curUser.getName())) {
+                lists.add(thing);
+            }
+        }
+        return lists;
     }
 
     public String getUnCheckOutBooksList() {
