@@ -40,6 +40,7 @@ public class BibliotecaLib {
         HINT_INFO.put("CHECK_OUT_FAIL", "That id is not available.");
         HINT_INFO.put("RETURN_SUCCESS", "Thank you for returning.");
         HINT_INFO.put("RETURN_FAIL", "That is not a valid id to return.");
+        HINT_INFO.put("CHECK_OUT_MSG", "You have checked out:\n");
         HINT_INFO.put("EXIT","quit");
     }
 
@@ -96,7 +97,7 @@ public class BibliotecaLib {
         if(input.equals(COMMAND.get("LIST_BOOKS"))) {
             flag = COMMAND.get("LIST_BOOKS");
             status = STATUS.get("LIST_THING");
-            return getUnCheckOutBooksList() + getCheckoutBooksList("You have checked out:\n") + HINT_INFO.get("LIST_COMMAND") + "\n";
+            return getUnCheckOutBooksList() + getCheckoutBooksList() + HINT_INFO.get("LIST_COMMAND") + "\n";
         } else if(input.equals(COMMAND.get("LIST_MOVIES"))) {
             flag = COMMAND.get("LIST_MOVIES");
             status = STATUS.get("LIST_THING");
@@ -148,9 +149,9 @@ public class BibliotecaLib {
         return movies;
     }
 
-    public String getCheckoutBooksList(String msg) {
+    public String getCheckoutBooksList() {
         ArrayList<Book> checkoutBooks = getCheckoutList(books);
-        return generateBookStr(checkoutBooks, msg);
+        return generateBookStr(checkoutBooks, HINT_INFO.get("CHECK_OUT_MSG"));
     }
 
     public String generateBookStr(ArrayList<Book> checkoutBooks, String message) {
@@ -183,17 +184,12 @@ public class BibliotecaLib {
     }
 
     public String getlistMovies() {
-        String msg = "List Movies:\n";
-        for(Movie movie : movies) {
-            msg += movie.getId() + ":movieName:" + movie.getName()  + ",director:" + movie.getDirector() + ",year:" + movie.getYear() + ",rating:" +
-                    movie.getRating() + "\n";
-        }
-        return msg;
+        return generateMovieStr(movies, "List Movies:\n");
     }
 
     public String getCheckoutMoviesList() {
         ArrayList<Movie> checkoutMovies = getCheckoutList(movies);
-        return generateMovieStr(checkoutMovies, "You have checked out:\n");
+        return generateMovieStr(checkoutMovies, HINT_INFO.get("CHECK_OUT_MSG"));
     }
 
     public String generateMovieStr(ArrayList<Movie> checkoutMovies, String message) {
