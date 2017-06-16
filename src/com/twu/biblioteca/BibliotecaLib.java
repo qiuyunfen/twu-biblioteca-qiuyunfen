@@ -33,7 +33,7 @@ public class BibliotecaLib {
         HINT_INFO.put("WELCOME_MESSAGE", ",Welcome to Biblioteca Library");
         HINT_INFO.put("LOGIN_FAIL", "please enter current account");
         HINT_INFO.put("MAIN_COMMAND", "1.List Books\n2.List Movies\n3.display information\n4.exit");
-        HINT_INFO.put("LIST_COMMAND","1.check out\n2.return");
+        HINT_INFO.put("LIST_COMMAND","1.check out\n2.return\n3.return to the main interface");
         HINT_INFO.put("CHECK_OUT_ID", "please input the id you want to check out:");
         HINT_INFO.put("RETURN_ID", "please input the id you want to return:");
         HINT_INFO.put("CHECK_OUT_SUCCESS", "Thank you! Enjoy!");
@@ -61,6 +61,7 @@ public class BibliotecaLib {
         COMMAND.put("EXIT", "4");
         COMMAND.put("CHECK_OUT", "1");
         COMMAND.put("RETURM", "2");
+        COMMAND.put("MAIN", "3");
     }
 
     public String handleInput(String input) {
@@ -89,6 +90,9 @@ public class BibliotecaLib {
         } else if(input.equals(COMMAND.get("RETURM"))) {
             status = STATUS.get("RETURN");
             return HINT_INFO.get("RETURN_ID");
+        } else if(input.equals(COMMAND.get("MAIN"))) {
+            status = STATUS.get("SIGN_IN");
+            return HINT_INFO.get("MAIN_COMMAND") + "\n";
         }
         return null;
     }
